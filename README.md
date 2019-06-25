@@ -18,13 +18,13 @@ Jag hämtar min data från följande APIs:
 ### JS
 
 All data som är känslig eller global så som Api keys, proxyUrl eller versioner
-lagrar jag i en module \*models/**\*Auth.js** och alla function som hämtar data från APIs
-ligger i \*models/**\*league.js**.
+lagrar jag i en module _models/_**Auth.js** och alla function som hämtar data från APIs
+ligger i _models/_**league.js**.
 
 Varje sida har sin egen view file i _views/_. För sidor med inputs (där man söker)
 har en view som slutar med **\_search.js** och sidan med information för vad man
 sökte efter slutar med **\_info.js**, så filerna för sökning efter aktuella matcher
-kan vara \*views/**\*leauge_live_search.js** som sen redirects till \*views/**\*league_live_info.js**.
+kan vara _views/_**leauge_live_search.js** som sen redirects till _views/_**league_live_info.js**.
 
 ### CSS
 
@@ -34,7 +34,7 @@ Media queries ligger i respektive fil tillsammans med dess default scss.
 
 ### Icon/Splash screen
 
-Filerna (img) för Ikoner och splash screens ligger i _res/_ och sedan typ av bilder och respektive enhet som tex. \*res/**\*screen/android**.
+Filerna (img) för Ikoner och splash screens ligger i _res/_ och sedan typ av bilder och respektive enhet som tex. _res/_**screen/android**.
 
 ### Other
 
