@@ -1,0 +1,167 @@
+.featured-game {
+    .header {
+        text-align: center;
+
+        .prefix {
+            max-width: 200px;
+        }
+    }
+    .header,
+    .header-content {
+        display: flex;
+        width: 100%;
+        margin: auto;
+
+        p {
+            text-align: center;
+        }
+    }
+
+    .players {
+        // display: grid;
+        // grid-template-columns: 50% 50%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        border-bottom: 1px solid #c9c6ca;
+
+        .team100 {
+            color: #8d2525;
+            // text-align: left;
+            width: 100%;
+            // grid-column: 1;
+        }
+
+        .team200 {
+            color: #181885;
+            // text-align: right;
+            width: 100%;
+            // grid-column: 2;
+        }
+
+        p {
+            // border-right: $border-grey;
+            width: 100px;
+
+            // &:nth-child(odd) {
+            //     border-right: $border-grey;
+            // }
+
+            &:nth-child(1) {
+                // border-left: $border-grey;
+            }
+        }
+    }
+
+    .game {
+        margin-bottom: 100px;
+
+        .player-title {
+            text-align: center;
+            // border-bottom: 1px solid #c9c6ca;
+        }
+
+        .team-header {
+            border-bottom: 1px solid #c9c6ca;
+
+            .prefix.team100-title,
+            .prefix.team200-title {
+                display: none;
+            }
+        }
+    }
+    .header-content {
+        p {
+            border-right: $border-grey;
+
+            &:first-of-type {
+                border-left: $border-grey;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .featured-game {
+        .header,
+        .header-content {
+            display: flex;
+            width: 50%;
+            margin: auto;
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .game .players {
+            // display: flex;
+            flex-wrap: unset;
+            // display: block; // for red vs blue
+            display: grid; // for red vs blue
+            grid-template-columns: 50% 50%;
+
+            .team100 {
+                // color: red;
+                // text-align: left;
+                // width: 100%;
+                grid-column: 1;
+                border-right: $border-grey;
+            }
+
+            .team200 {
+                // color: blue;
+                // text-align: right;
+                // width: 100%;
+                grid-column: 2;
+            }
+
+            p {
+                // width: unset;
+                // border-right: $border-grey;
+
+                &:nth-child(1) {
+                    // border-left: $border-grey;
+                }
+
+                &:nth-child(6) {
+                    grid-row: 1;
+                }
+
+                &:nth-child(7) {
+                    grid-row: 2;
+                }
+
+                &:nth-child(8) {
+                    grid-row: 3;
+                }
+
+                &:nth-child(9) {
+                    grid-row: 4;
+                }
+
+                &:nth-child(10) {
+                    grid-row: 5;
+                }
+            }
+        }
+
+        .player-title,
+        .team-header {
+            border-bottom: none;
+            display: grid;
+            grid-template-columns: 47% 6% 47%;
+
+            .team100-title {
+                text-align: center;
+                padding-left: 50px;
+                display: block;
+            }
+            .team200-title {
+                text-align: center;
+                padding-right: 50px;
+                display: block;
+            }
+        }
+    }
+}

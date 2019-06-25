@@ -1,0 +1,77 @@
+.masteries {
+    // display: flex;
+    text-align: center;
+    margin-bottom: 75px;
+    margin-top: p {
+        margin: 0;
+        padding: 0;
+    }
+
+    div {
+        display: flex;
+        border-bottom: thin solid #e4e4e4;
+
+        &:last-of-type {
+            display: block;
+            padding-top: 20px;
+
+            .prefix {
+                max-width: unset;
+                text-align: center;
+                padding-left: 0;
+            }
+        }
+    }
+
+    .prefix {
+        max-width: 100px;
+        padding-left: 25px;
+        text-align: left;
+
+        &:after {
+            content: ": ";
+        }
+    }
+}
+
+.allMasteries {
+    margin-top: 50px;
+    h3 {
+        text-align: center;
+        border-bottom: $border-grey;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .masteries {
+        display: flex;
+        text-align: center;
+        margin-bottom: 75px;
+
+        div {
+            display: block;
+            flex-grow: 1;
+            border-right: $border-grey;
+
+            &:nth-child(1) {
+                border-left: $border-grey;
+            }
+        }
+        p {
+            padding: 0;
+        }
+
+        .prefix {
+            text-align: center;
+            max-width: unset;
+            padding-left: 0;
+        }
+    }
+
+    .allMasteries {
+        h3 {
+            text-align: center;
+            border-bottom: $border-grey;
+        }
+    }
+}

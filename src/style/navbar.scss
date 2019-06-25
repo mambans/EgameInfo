@@ -1,0 +1,150 @@
+.bottom-nav {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 5rem;
+    align-items: center;
+    justify-content: space-evenly;
+    // background-color: #2b0839;
+
+    &.navbar {
+        box-sizing: border-box;
+        a {
+            text-align: center;
+            color: rgb(245, 245, 245);
+            font-weight: bold;
+
+            &.active {
+                color: $dark-purple;
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: rgb(255, 255, 255);
+            }
+        }
+
+        i {
+            display: block;
+        }
+
+        span {
+            font-size: 0.85rem;
+        }
+    }
+}
+
+.navbar {
+    position: fixed;
+    z-index: 99999;
+    bottom: 0;
+    width: 100%;
+    background-color: #2b0839;
+    padding: 0;
+}
+
+#logo {
+    display: none;
+    font-size: 1rem;
+    // display: flex;
+    align-items: center;
+    height: inherit;
+    position: absolute;
+    left: 2rem;
+
+    a {
+        color: white;
+    }
+}
+
+.btn-div {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    width: 100%;
+
+    a {
+        list-style: none;
+        padding: 0 15px;
+        flex-grow: 1;
+
+        .icon-text {
+            display: none;
+        }
+    }
+}
+
+.title {
+    z-index: 9999;
+    margin-top: 0;
+    background-color: $dark-purple;
+    color: white;
+    font-size: 1.4rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    // border-top: 1px solid transparent;
+    border-bottom: 1px solid white;
+    position: fixed;
+    width: 100%;
+    top: 0rem;
+
+    h1 {
+        font-size: 1.4rem;
+        margin: 0;
+        height: inherit;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+        // border-top: 1px solid;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+        bottom: unset;
+        top: 0;
+    }
+
+    #logo {
+        font-size: 2.5rem;
+        display: flex;
+        height: inherit;
+        left: 20px;
+        top: 0;
+    }
+
+    .btn-div {
+        display: flex;
+        align-items: center;
+        height: inherit;
+        width: unset;
+
+        a {
+            list-style: none;
+            padding: 0 50px;
+
+            .icon-text {
+                display: inline;
+            }
+        }
+    }
+
+    .title {
+        top: 4rem;
+        border-top: 1px solid transparent;
+
+        h1 {
+            width: 50%;
+            border-top: 1px solid;
+        }
+    }
+
+    .bottom-nav {
+        height: 4rem;
+    }
+}

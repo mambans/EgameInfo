@@ -1,0 +1,198 @@
+.LiveGame-header {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    min-width: 50%;
+    border-bottom: $border-grey;
+    padding-bottom: 15px;
+
+    .header {
+        width: 33%;
+        grid-row: 1;
+    }
+
+    div {
+        flex-grow: 1;
+
+        &:last-child {
+            grid-row: 2;
+            width: 100%;
+        }
+    }
+}
+
+.match {
+    .header {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 30% 20% 15%;
+        text-align: center;
+    }
+
+    .team1,
+    .team2 {
+        display: none;
+    }
+}
+
+.teams {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .player {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        border-bottom: $border-grey;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+
+        div:nth-child(1) {
+            color: #136d90;
+            grid-row: 1;
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        div:nth-child(2) {
+            grid-row: 2;
+        }
+
+        div::nth-child(3) {
+            grid-row: 2;
+        }
+    }
+
+    div {
+        // flex-grow: 1;
+        text-align: center;
+    }
+}
+
+.champ {
+    p {
+        padding-bottom: 0;
+    }
+
+    .champ-img {
+        widows: 75px;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .LiveGame-header {
+        display: flex;
+        flex-wrap: unset;
+
+        .header {
+            width: unset;
+
+            &:last-of-type {
+                width: unset;
+            }
+        }
+
+        div:last-of-type {
+            width: unset;
+        }
+    }
+    .match .team-header {
+        display: flex;
+        text-align: center;
+
+        .team1 {
+            padding-right: 250px;
+        }
+
+        .team2 {
+            padding-left: 250px;
+        }
+    }
+    .teams {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 50% 50%;
+        .player {
+            width: 100%;
+            // grid-template-columns: 30% 20% 15%;
+            display: flex;
+
+            border-bottom: none;
+            margin-bottom: 0;
+            padding: 0;
+
+            div:nth-child(1) {
+                width: 30%;
+            }
+            div:nth-child(2) {
+                width: 25%;
+            }
+            div:nth-child(3) {
+                width: 10%;
+            }
+            div:nth-child(4) {
+                width: 15%;
+            }
+        }
+
+        .player:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1;
+            border-right: $border-grey;
+        }
+
+        .player:nth-child(2) {
+            grid-column: 1;
+            grid-row: 2;
+            border-right: $border-grey;
+        }
+
+        .player:nth-child(3) {
+            grid-column: 1;
+            grid-row: 3;
+            border-right: $border-grey;
+        }
+
+        .player:nth-child(4) {
+            grid-column: 1;
+            grid-row: 4;
+            border-right: $border-grey;
+        }
+
+        .player:nth-child(5) {
+            grid-column: 1;
+            grid-row: 5;
+            border-right: $border-grey;
+        }
+
+        .player:nth-child(6) {
+            grid-column: 2;
+            grid-row: 1;
+            flex-direction: row-reverse;
+        }
+
+        .player:nth-child(7) {
+            grid-column: 2;
+            grid-row: 2;
+            flex-direction: row-reverse;
+        }
+
+        .player:nth-child(8) {
+            grid-column: 2;
+            grid-row: 3;
+            flex-direction: row-reverse;
+        }
+
+        .player:nth-child(9) {
+            grid-column: 2;
+            grid-row: 4;
+            flex-direction: row-reverse;
+        }
+
+        .player:nth-child(10) {
+            grid-column: 2;
+            grid-row: 5;
+            flex-direction: row-reverse;
+        }
+    }
+}

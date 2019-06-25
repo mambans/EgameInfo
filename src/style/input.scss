@@ -1,0 +1,59 @@
+select {
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 0.6rem 0.6rem;
+    box-sizing: border-box;
+    max-width: 32rem;
+    margin-bottom: 1.4rem;
+    background: #fafafa;
+
+    &:hover,
+    &:active,
+    &:focus {
+        border-color: $nav-blue;
+    }
+}
+
+// .input-label {
+//     font-weight: bold;
+//     margin: 1rem 0 0 0;
+//     display: block;
+// }
+
+// .input-label:first-of-type {
+//     margin: 1rem 0 0 0;
+// }
+
+// .input-label::after {
+//     content: ":";
+// }
+
+// .input {
+//     width: 350px;
+// }
+
+select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+select option {
+    font-weight: normal;
+}
+
+select {
+    // background: url(./img/arrow-down1.png) 96%/05% no-repeat #fafafa;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+@media screen and (min-width: 1080px) {
+    input.form-control {
+        width: 500px;
+    }
+}
