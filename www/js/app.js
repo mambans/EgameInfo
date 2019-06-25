@@ -462,7 +462,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mith
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"auth\", function() { return auth; });\n\n\nconst auth = {\n  lolVersion: \"9.12.1\",\n  apiKey: \"api_key=RGAPI-ae7e4a55-5d07-4a7f-a092-212e3cf35412\",\n  proxy: \"http://www.student.bth.se/~ropb16/dbwebb-kurser/webapp/me/kmom10/proj/www/proxy.php?url=\"\n};\n\n\n//# sourceURL=webpack:///./src/js/models/auth.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"auth\", function() { return auth; });\n\n\nconst auth = {\n  lolVersion: \"9.12.1\",\n  apiKey: \"api_key=RGAPI-362bb2dc-5375-4b7c-87dd-59c592c76aba\",\n  proxy: \"http://www.student.bth.se/~ropb16/dbwebb-kurser/webapp/me/kmom10/proj/www/proxy.php?url=\"\n};\n\n\n//# sourceURL=webpack:///./src/js/models/auth.js?");
 
 /***/ }),
 

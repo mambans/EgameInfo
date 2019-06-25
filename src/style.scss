@@ -4,14 +4,14 @@
 @import "./style/variables";
 
 @import "./style/navbar";
-@import "./style/lolaccinfo";
-@import "./style/masteries";
-@import "./style/livegame";
-@import "./style/champrotation";
-@import "./style/featured_game";
 @import "./style/input";
-// @import "./style/buttons";
 @import "./style/animations";
 @import "./style/error";
+
+@import "./style/league/league_acc_info";
+@import "./style/league/live_game_info";
+@import "./style/league/champion_masteries";
+@import "./style/league/champion_rotation";
+@import "./style/league/featured_game";
 
 @import "./style/media-queries";
