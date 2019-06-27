@@ -8,6 +8,7 @@ const league = {
     rotation: null,
     featuredGames: null,
     ChampList: [],
+    sumSpellsList: [],
     error: "",
     search: async name => {
         try {
@@ -270,11 +271,41 @@ const league = {
                 });
         }
 
+        console.log(JSON.parse(localStorage.getItem("championsList")));
+
         Object.values(JSON.parse(localStorage.getItem("championsList")).data).map(champion => {
             league.ChampList.push(champion);
         });
 
         console.log("champList: ", league.ChampList);
+    },
+
+    summonerSpellsList: async () => {
+        var url;
+        url = encodeURIComponent(
+            `https://ddragon.leagueoflegends.com/cdn/${auth.lolVersion}/data/en_US/summoner.json?${auth.apiKey}`
+        );
+
+        if (!localStorage.getItem("summonerSpellsList")) {
+            await m
+                .request({
+                    method: "GET",
+                    url: auth.proxy + url,
+                })
+                .then(res => {
+                    console.log("request sent");
+
+                    localStorage.setItem("summonerSpellsList", JSON.stringify(res));
+                });
+        }
+
+        console.log(JSON.parse(localStorage.getItem("summonerSpellsList")));
+
+        Object.values(JSON.parse(localStorage.getItem("summonerSpellsList")).data).map(spell => {
+            league.sumSpellsList.push(spell);
+        });
+
+        console.log("sumSpellsList: ", league.sumSpellsList);
     },
 };
 

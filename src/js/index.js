@@ -21,6 +21,7 @@ var app = {
     onDeviceReady: function() {
         console.log("Device is ready!");
         league.championsList();
+        league.summonerSpellsList();
         m.route(document.body, "/", {
             "/": {
                 render: function() {

@@ -734,8 +734,6 @@ select {
       .teams .player div:nth-child(2) {
         width: 25%; }
       .teams .player div:nth-child(3) {
-        width: 10%; }
-      .teams .player div:nth-child(4) {
         width: 15%; }
     .teams .player:nth-child(1) {
       grid-column: 1;
@@ -933,6 +931,12 @@ h3 {
       text-align: center;
       padding-right: 50px;
       display: block; } }
+
+.loading-div {
+  display: flex;
+  justify-content: center; }
+  .loading-div img.loading-icon {
+    width: 25%; }
 
 @media screen and (min-width: 1080px) {
   .bottom-nav {

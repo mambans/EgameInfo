@@ -38,4 +38,4 @@ Filerna (img) för Ikoner och splash screens ligger i _res/_ och sedan typ av bi
 
 ### Other
 
-Filer som nästan aldrig rörs (kod från andra kodare) som t.ex. **proxy.php** från 'Emil Folino' ligger i mappen **static/**.
+Filer som nästan aldrig rörs (kod från andra kodare) som t.ex. **proxy.php** från 'Emil Folino' ligger i mappen _static/_.

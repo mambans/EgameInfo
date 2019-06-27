@@ -52,7 +52,12 @@ const league_acc = {
                             </button>
                         </div>
                     ) : (
-                        m(".loading-icon")
+                        <div className="loading-div">
+                            <img
+                                src="../../img/Eclipse-2s-200px.svg"
+                                className="loading-icon"
+                                alt="Loading"></img>
+                        </div>
                     )}
                     {vnode.state.mastVisible && m(allMasteries)}
                 </div>
