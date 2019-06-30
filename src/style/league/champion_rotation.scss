@@ -10,6 +10,15 @@ h3 {
     margin-bottom: 100px;
     flex-wrap: wrap;
 
+    .champion {
+        padding: 0px 1rem;
+        width: 33%;
+
+        img {
+            width: 75%;
+        }
+    }
+
     p {
         width: 100px;
     }
@@ -17,10 +26,16 @@ h3 {
 
 @media screen and (min-width: 1080px) {
     .rotationChamps {
-        flex-wrap: unset;
+        // flex-wrap: wrap;
+        justify-content: center;
+
+        .champion {
+            width: 100%;
+        }
 
         p {
             width: unset;
         }
     }
 }
+    

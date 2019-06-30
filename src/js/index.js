@@ -12,6 +12,7 @@ import { league_acc } from "./views/league_acc_info";
 import { champRotation } from "./views/championRotation";
 import { featuredGames } from "./views/featured_games";
 import { league } from "./models/league";
+import { auth } from "./models/auth";
 
 var app = {
     initialize: function() {
@@ -22,6 +23,7 @@ var app = {
         console.log("Device is ready!");
         league.championsList();
         league.summonerSpellsList();
+        auth.latestVersion();
         m.route(document.body, "/", {
             "/": {
                 render: function() {

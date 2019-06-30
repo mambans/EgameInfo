@@ -684,14 +684,23 @@ select {
     border-bottom: 1px solid #c9c6ca;
     margin-bottom: 2rem;
     padding: 1rem 0; }
+    .teams .player .champ {
+      align-self: center; }
+    .teams .player .summonerSpells img {
+      width: 60px;
+      margin: 0 5px; }
+    .teams .player > p {
+      align-self: center;
+      grid-column-start: 1;
+      grid-column-end: 3; }
     .teams .player div:nth-child(1) {
       color: #136d90;
       grid-row: 1;
       grid-column-start: 1;
       grid-column-end: 3; }
-    .teams .player div:nth-child(2) {
+    .teams .player .champ {
       grid-row: 2; }
-    .teams .player div::nth-child(3) {
+    .teams .player .summonerSpells {
       grid-row: 2; }
   .teams div {
     text-align: center; }
@@ -700,7 +709,7 @@ select {
   padding-bottom: 0; }
 
 .champ .champ-img {
-  widows: 75px; }
+  width: 60px; }
 
 @media screen and (min-width: 1080px) {
   .LiveGame-header {
@@ -725,15 +734,17 @@ select {
     grid-template-columns: 50% 50%; }
     .teams .player {
       width: 100%;
+      padding: 20px 0;
       display: flex;
       border-bottom: none;
-      margin-bottom: 0;
-      padding: 0; }
+      margin-bottom: 0; }
+      .teams .player > p {
+        max-width: 45%; }
       .teams .player div:nth-child(1) {
         width: 30%; }
-      .teams .player div:nth-child(2) {
+      .teams .player .champ {
         width: 25%; }
-      .teams .player div:nth-child(3) {
+      .teams .player .summonerSpells {
         width: 15%; }
     .teams .player:nth-child(1) {
       grid-column: 1;
@@ -804,6 +815,16 @@ select {
   .allMasteries h3 {
     text-align: center;
     border-bottom: 1px solid #c9c6ca; }
+  .allMasteries .champion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #c9c6ca; }
+    .allMasteries .champion img {
+      width: 60px;
+      margin-left: 25px; }
+    .allMasteries .champion h3 {
+      border-bottom: none; }
 
 @media screen and (min-width: 1080px) {
   .masteries {
@@ -836,12 +857,19 @@ h3 {
   text-align: center;
   margin-bottom: 100px;
   flex-wrap: wrap; }
+  .rotationChamps .champion {
+    padding: 0px 1rem;
+    width: 33%; }
+    .rotationChamps .champion img {
+      width: 75%; }
   .rotationChamps p {
     width: 100px; }
 
 @media screen and (min-width: 1080px) {
   .rotationChamps {
-    flex-wrap: unset; }
+    justify-content: center; }
+    .rotationChamps .champion {
+      width: 100%; }
     .rotationChamps p {
       width: unset; } }
 

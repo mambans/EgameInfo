@@ -48,19 +48,44 @@
         margin-bottom: 2rem;
         padding: 1rem 0;
 
+        .champ {
+            align-self: center;
+        }
+
+        .summonerSpells {
+            img {
+                width: 60px;
+                margin: 0 5px;
+            }
+        }
+
+        & > p {
+            align-self: center;
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
         div:nth-child(1) {
             color: #136d90;
             grid-row: 1;
             grid-column-start: 1;
             grid-column-end: 3;
         }
-        div:nth-child(2) {
+
+        .champ {
             grid-row: 2;
         }
 
-        div::nth-child(3) {
+        .summonerSpells {
             grid-row: 2;
         }
+        // div:nth-child(2) {
+        //     grid-row: 2;
+        // }
+
+        // div:nth-child(3) {
+        //     grid-row: 2;
+        // }
     }
 
     div {
@@ -75,7 +100,7 @@
     }
 
     .champ-img {
-        widows: 75px;
+        width: 60px;
     }
 }
 
@@ -114,22 +139,34 @@
         grid-template-columns: 50% 50%;
         .player {
             width: 100%;
-            // grid-template-columns: 30% 20% 15%;
+            padding: 20px 0;
             display: flex;
-
             border-bottom: none;
             margin-bottom: 0;
-            padding: 0;
+            // grid-template-columns: 30% 20% 15%;
+
+            & > p {
+                max-width: 45%;
+            }
 
             div:nth-child(1) {
                 width: 30%;
             }
-            div:nth-child(2) {
+
+            .champ {
                 width: 25%;
             }
-            div:nth-child(3) {
+
+            .summonerSpells {
                 width: 15%;
             }
+
+            // div:nth-child(2) {
+            //     width: 25%;
+            // }
+            // div:nth-child(3) {
+            //     width: 15%;
+            // }
         }
 
         .player:nth-child(1) {

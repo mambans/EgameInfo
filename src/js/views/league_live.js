@@ -3,6 +3,8 @@
 import m from "mithril";
 import { league } from "../models/league";
 
+import { auth } from "../models/auth";
+
 const leagueLive = {
     onbeforeremove: function(vnode) {
         vnode.dom.classList.add("slide-out");
@@ -69,46 +71,42 @@ const leagueLive = {
                                                 ].championId.toString()
                                         ).id;
 
-                                        var champImgUrl = `http://ddragon.leagueoflegends.com/cdn/9.12.1/img/champion/${champName}.png`;
+                                        var champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
 
                                         return m.fragment({}, [
                                             <div className="player">
-                                                <div>
-                                                    <p>
-                                                        {league.liveGame.participants[
-                                                            player
-                                                        ].summonerName.toString()}
-                                                    </p>
-                                                </div>
+                                                <p>
+                                                    {league.liveGame.participants[
+                                                        player
+                                                    ].summonerName.toString()}
+                                                </p>
                                                 <div className="champ">
-                                                    <p>{champName}</p>
                                                     <img
                                                         className="champ-img"
-                                                        src=""
+                                                        src={champImgUrl}
                                                         alt="champ-img"></img>
                                                 </div>
-                                                <div>
-                                                    <p>
-                                                        {
+                                                <div className="summonerSpells">
+                                                    <img
+                                                        src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
                                                             league.sumSpellsList.find(
                                                                 spell =>
                                                                     spell.key ===
                                                                     league.liveGame.participants[
                                                                         player
                                                                     ].spell1Id.toString()
-                                                            ).name
-                                                        }
-                                                        /
-                                                        {
+                                                            ).id
+                                                        }.png`}></img>
+                                                    <img
+                                                        src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
                                                             league.sumSpellsList.find(
                                                                 spell =>
                                                                     spell.key ===
                                                                     league.liveGame.participants[
                                                                         player
                                                                     ].spell2Id.toString()
-                                                            ).name
-                                                        }
-                                                    </p>
+                                                            ).id
+                                                        }.png`}></img>
                                                 </div>
                                             </div>,
                                         ]);

@@ -255,7 +255,7 @@ const league = {
     championsList: async () => {
         var url;
         url = encodeURIComponent(
-            `https://ddragon.leagueoflegends.com/cdn/${auth.lolVersion}/data/en_US/champion.json?${auth.apiKey}`
+            `https://ddragon.leagueoflegends.com/cdn/${auth.patch}/data/en_US/champion.json?${auth.apiKey}`
         );
 
         if (!localStorage.getItem("championsList")) {
@@ -283,7 +283,7 @@ const league = {
     summonerSpellsList: async () => {
         var url;
         url = encodeURIComponent(
-            `https://ddragon.leagueoflegends.com/cdn/${auth.lolVersion}/data/en_US/summoner.json?${auth.apiKey}`
+            `https://ddragon.leagueoflegends.com/cdn/${auth.patch}/data/en_US/summoner.json?${auth.apiKey}`
         );
 
         if (!localStorage.getItem("summonerSpellsList")) {

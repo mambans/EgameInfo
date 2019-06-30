@@ -40,6 +40,22 @@
         text-align: center;
         border-bottom: $border-grey;
     }
+
+    .champion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #c9c6ca;
+
+        img {
+            width: 60px;
+            margin-left: 25px;
+        }
+
+        h3 {
+            border-bottom: none;
+        }
+    }
 }
 
 @media screen and (min-width: 1080px) {

@@ -1,6 +1,7 @@
 import m from "mithril";
 
 import { league } from "./../models/league";
+import { auth } from "../models/auth";
 
 const allMasteries = {
     view: () => {
@@ -11,13 +12,25 @@ const allMasteries = {
                 {league.acc.masteries && league.ChampList ? (
                     Object.values(league.acc.masteries).map(champ => {
                         return m.fragment({}, [
-                            <h3>
-                                {
-                                    league.ChampList.find(
-                                        char => char.key === champ.championId.toString()
-                                    ).id
-                                }
-                            </h3>,
+                            <div className="champion">
+                                <h3>
+                                    {
+                                        league.ChampList.find(
+                                            char => char.key === champ.championId.toString()
+                                        ).id
+                                    }
+                                </h3>
+                                <img
+                                    src={`http://ddragon.leagueoflegends.com/cdn/${
+                                        auth.patch
+                                    }/img/champion/${
+                                        league.ChampList.find(
+                                            char => char.key === champ.championId.toString()
+                                        ).id
+                                    }.png`}
+                                    alt="champion img"></img>
+                                ,
+                            </div>,
                             <div className="masteries">
                                 <div>
                                     <p className="prefix">Level</p>
