@@ -86,9 +86,11 @@ form {
     .body-container {
         width: 75%;
     }
-}
 
-@media screen and (min-width: 1080px) {
+    .main-container {
+        margin: 7em auto 3.2rem;
+    }
+
     form {
         width: 500px;
     }
