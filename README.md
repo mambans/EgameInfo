@@ -8,7 +8,7 @@ vilka spelare som finns med i matchen och deras lag, vilka karaktärer de spelar
 Appen stöder också vilka karaktärer som är gratis för alla i nuvarande vecka och
 vilka som är gratis för nya spelare.
 
-Jag hämtar min data från följande APIs:
+Jag hämtar min data från följande **APIs**:
 [Riot Games (LoL)](https://developer.riotgames.com/)
 
 [Data dragon](https://developer.riotgames.com/static-data.html) (också från Riot Games)
