@@ -26,11 +26,15 @@ h3 {
 
 @media screen and (min-width: 1080px) {
     .rotationChamps {
-        // flex-wrap: wrap;
+        // flex-wrap: unset;
         justify-content: center;
 
         .champion {
-            width: 100%;
+            width: unset;
+
+            img {
+                width: unset;
+            }
         }
 
         p {
@@ -38,4 +42,3 @@ h3 {
         }
     }
 }
-    
