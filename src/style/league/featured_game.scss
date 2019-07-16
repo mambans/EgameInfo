@@ -18,8 +18,6 @@
     }
 
     .players {
-        // display: grid;
-        // grid-template-columns: 50% 50%;
         display: flex;
         flex-wrap: wrap;
         text-align: center;
@@ -27,29 +25,16 @@
 
         .team100 {
             color: #8d2525;
-            // text-align: left;
             width: 100%;
-            // grid-column: 1;
         }
 
         .team200 {
             color: #181885;
-            // text-align: right;
             width: 100%;
-            // grid-column: 2;
         }
 
         p {
-            // border-right: $border-grey;
             width: 100px;
-
-            // &:nth-child(odd) {
-            //     border-right: $border-grey;
-            // }
-
-            &:nth-child(1) {
-                // border-left: $border-grey;
-            }
         }
     }
 
@@ -58,7 +43,6 @@
 
         .player-title {
             text-align: center;
-            // border-bottom: 1px solid #c9c6ca;
         }
 
         .team-header {
@@ -91,7 +75,15 @@
 
             p {
                 text-align: center;
+                width: 33%;
             }
+
+            .prefix {
+                max-width: unset;
+            }
+        }
+        .header.prefix {
+            max-width: unset;
         }
 
         .game .players {
@@ -102,28 +94,15 @@
             grid-template-columns: 50% 50%;
 
             .team100 {
-                // color: red;
-                // text-align: left;
-                // width: 100%;
                 grid-column: 1;
                 border-right: $border-grey;
             }
 
             .team200 {
-                // color: blue;
-                // text-align: right;
-                // width: 100%;
                 grid-column: 2;
             }
 
             p {
-                // width: unset;
-                // border-right: $border-grey;
-
-                &:nth-child(1) {
-                    // border-left: $border-grey;
-                }
-
                 &:nth-child(6) {
                     grid-row: 1;
                 }
