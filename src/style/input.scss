@@ -15,24 +15,6 @@ select {
     }
 }
 
-// .input-label {
-//     font-weight: bold;
-//     margin: 1rem 0 0 0;
-//     display: block;
-// }
-
-// .input-label:first-of-type {
-//     margin: 1rem 0 0 0;
-// }
-
-// .input-label::after {
-//     content: ":";
-// }
-
-// .input {
-//     width: 350px;
-// }
-
 select:focus {
     border-color: #aaa;
     box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
