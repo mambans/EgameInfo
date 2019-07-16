@@ -19,8 +19,8 @@ const champRotation = {
             <div className="title">
                 <h1>This week's free champions.</h1>
             </div>,
-            league.rotation ? (
-                <div className="main-container slide-in">
+            <div className="main-container slide-in">
+                {league.rotation ? (
                     <div class="body-container">
                         <h3>Champions</h3>
                         <div className="rotationChamps">
@@ -75,15 +75,17 @@ const champRotation = {
                             )}
                         </div>
                     </div>
-                </div>
-            ) : (
-                <div className="loading-div">
-                    <img
-                        src="../../img/Eclipse-2s-200px.svg"
-                        className="loading-icon"
-                        alt="Loading"></img>
-                </div>
-            ),
+                ) : (
+                    <div class="body-container">
+                        <div className="loading-div">
+                            <img
+                                src="../../img/Eclipse-2s-200px.svg"
+                                className="loading-icon"
+                                alt="Loading"></img>
+                        </div>
+                    </div>
+                )}
+            </div>,
         ]);
     },
 };

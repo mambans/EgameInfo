@@ -18,9 +18,9 @@ const featuredGames = {
             <div className="title">
                 <h1>Featured Games</h1>
             </div>,
-            league.featuredGames ? (
-                <div className="main-container slide-in">
-                    <div class="body-container">
+            <div className="main-container slide-in">
+                <div class="body-container">
+                    {league.featuredGames ? (
                         <div className="featured-game">
                             <div className="header">
                                 <p className="prefix">Mode</p>
@@ -61,16 +61,16 @@ const featuredGames = {
                                 ]);
                             })}
                         </div>
-                    </div>
+                    ) : (
+                        <div className="loading-div">
+                            <img
+                                src="../../img/Eclipse-2s-200px.svg"
+                                className="loading-icon"
+                                alt="Loading"></img>
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div className="loading-div">
-                    <img
-                        src="../../img/Eclipse-2s-200px.svg"
-                        className="loading-icon"
-                        alt="Loading"></img>
-                </div>
-            ),
+            </div>,
         ]);
     },
 };
