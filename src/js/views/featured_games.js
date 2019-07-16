@@ -14,13 +14,11 @@ const featuredGames = {
         return await league.featuredGamesSearch();
     },
     view: () => {
-        return (
-            league.featuredGames &&
-            m.fragment({}, [
-                console.log(league.featuredGames.gameList),
-                <div className="title">
-                    <h1>Featured Games</h1>
-                </div>,
+        return m.fragment({}, [
+            <div className="title">
+                <h1>Featured Games</h1>
+            </div>,
+            league.featuredGames ? (
                 <div className="main-container slide-in">
                     <div class="body-container">
                         <div className="featured-game">
@@ -64,9 +62,16 @@ const featuredGames = {
                             })}
                         </div>
                     </div>
-                </div>,
-            ])
-        );
+                </div>
+            ) : (
+                <div className="loading-div">
+                    <img
+                        src="../../img/Eclipse-2s-200px.svg"
+                        className="loading-icon"
+                        alt="Loading"></img>
+                </div>
+            ),
+        ]);
     },
 };
 

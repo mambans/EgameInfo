@@ -12,12 +12,6 @@ const league = {
     error: "",
     search: async name => {
         try {
-            // if (typeof requests !== "undefined") {
-            //     localStorage["requests"] = 1;
-            //     console.log(localStorage["requests"]);
-            // } else if (localStorage["requests"] < 10) {
-            // localStorage["requests"] += 1;
-
             var url;
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
@@ -35,30 +29,25 @@ const league = {
                         url: auth.proxy + url,
                     })
                     .then(res => {
-                        console.log("request sent ACC SEARCH");
-
                         localStorage.setItem(`${name}-date`, JSON.stringify(new Date().getTime()));
                         localStorage.setItem(name, JSON.stringify(res));
                     });
             }
 
             league.acc = JSON.parse(localStorage.getItem(name));
-            console.log("TCL: league.acc", league.acc);
 
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${league.acc.id}?${auth.apiKey}`
             );
 
             localStorage.getItem(`${name}-TotalMastery`)
-                ? (JSON.parse(localStorage.getItem(`${name}-TotalMastery`)),
-                  console.log("localStorage"))
+                ? JSON.parse(localStorage.getItem(`${name}-TotalMastery`))
                 : await m
                       .request({
                           method: "GET",
                           url: auth.proxy + url,
                       })
                       .then(res => {
-                          console.log("request sent MASTERIES");
                           localStorage.setItem(`${name}-TotalMastery`, JSON.stringify(res));
                       });
 
@@ -90,8 +79,6 @@ const league = {
                         url: auth.proxy + url,
                     })
                     .then(res => {
-                        console.log("request senttt");
-
                         localStorage.setItem(`${name}-date`, JSON.stringify(new Date().getTime()));
                         localStorage.setItem(name, JSON.stringify(res));
                     })
@@ -120,8 +107,6 @@ const league = {
                         url: auth.proxy + url,
                     })
                     .then(res => {
-                        console.log("request sents");
-
                         localStorage.setItem(`${name}-live`, JSON.stringify(res));
                         localStorage.setItem(
                             `${name}-live-date`,
@@ -167,9 +152,6 @@ const league = {
                         url: auth.proxy + url,
                     })
                     .then(res => {
-                        console.log("request sent");
-                        console.log(localStorage.getItem(`${name}-mast`));
-
                         localStorage.setItem(`${name}-mast`, JSON.stringify(res));
                         localStorage.setItem(
                             `${name}-mast-date`,
@@ -180,7 +162,6 @@ const league = {
             } else {
                 league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
             }
-            console.log("TCL: league.acc.masteries", league.acc.masteries);
         } catch (e) {
             console.log("Error", e);
         }
@@ -204,8 +185,6 @@ const league = {
                     url: auth.proxy + url,
                 })
                 .then(res => {
-                    console.log("request sent");
-
                     localStorage.setItem("currentRotation", JSON.stringify(res));
                     localStorage.setItem(
                         "currentRotation-date",
@@ -216,8 +195,6 @@ const league = {
         }
 
         league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
-
-        console.log("TCL: league.rotation ", league.rotation);
     },
 
     featuredGamesSearch: async () => {
@@ -238,8 +215,6 @@ const league = {
                     url: auth.proxy + url,
                 })
                 .then(res => {
-                    console.log("request sent");
-
                     localStorage.setItem("featuredGames", JSON.stringify(res));
                     localStorage.setItem(
                         "featuredGames-date",
@@ -265,19 +240,13 @@ const league = {
                     url: auth.proxy + url,
                 })
                 .then(res => {
-                    console.log("request sent");
-
                     localStorage.setItem("championsList", JSON.stringify(res));
                 });
         }
 
-        console.log(JSON.parse(localStorage.getItem("championsList")));
-
         Object.values(JSON.parse(localStorage.getItem("championsList")).data).map(champion => {
             league.ChampList.push(champion);
         });
-
-        console.log("champList: ", league.ChampList);
     },
 
     summonerSpellsList: async () => {
@@ -299,13 +268,9 @@ const league = {
                 });
         }
 
-        console.log(JSON.parse(localStorage.getItem("summonerSpellsList")));
-
         Object.values(JSON.parse(localStorage.getItem("summonerSpellsList")).data).map(spell => {
             league.sumSpellsList.push(spell);
         });
-
-        console.log("sumSpellsList: ", league.sumSpellsList);
     },
 };
 

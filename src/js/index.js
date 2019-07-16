@@ -21,9 +21,9 @@ var app = {
 
     onDeviceReady: function() {
         console.log("Device is ready!");
+        auth.latestVersion();
         league.championsList();
         league.summonerSpellsList();
-        auth.latestVersion();
         m.route(document.body, "/", {
             "/": {
                 render: function() {

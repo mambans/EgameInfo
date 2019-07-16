@@ -16,19 +16,41 @@ const champRotation = {
     },
     view: () => {
         return m.fragment({}, [
+            <div className="title">
+                <h1>This week's free champions.</h1>
+            </div>,
             league.rotation ? (
-                ((
-                    <div className="title">
-                        <h1>This week's free champions.</h1>
-                    </div>
-                ),
-                (
-                    <div className="main-container slide-in">
-                        <div class="body-container">
-                            <h3>Champions</h3>
-
-                            <div className="rotationChamps">
-                                {Object.values(league.rotation.freeChampionIds).map(champ => {
+                <div className="main-container slide-in">
+                    <div class="body-container">
+                        <h3>Champions</h3>
+                        <div className="rotationChamps">
+                            {Object.values(league.rotation.freeChampionIds).map(champ => {
+                                return m.fragment({}, [
+                                    <div className="champion">
+                                        <p>
+                                            {
+                                                league.ChampList.find(
+                                                    char => char.key === champ.toString()
+                                                ).id
+                                            }
+                                        </p>
+                                        <img
+                                            src={`http://ddragon.leagueoflegends.com/cdn/${
+                                                auth.patch
+                                            }/img/champion/${
+                                                league.ChampList.find(
+                                                    char => char.key === champ.toString()
+                                                ).id
+                                            }.png`}
+                                            alt="champion img"></img>
+                                    </div>,
+                                ]);
+                            })}
+                        </div>
+                        <h3>Champs for new players.</h3>
+                        <div className="rotationChamps">
+                            {Object.values(league.rotation.freeChampionIdsForNewPlayers).map(
+                                champ => {
                                     return m.fragment({}, [
                                         <div className="champion">
                                             <p>
@@ -38,7 +60,6 @@ const champRotation = {
                                                     ).id
                                                 }
                                             </p>
-                                            {console.log(champ)}
                                             <img
                                                 src={`http://ddragon.leagueoflegends.com/cdn/${
                                                     auth.patch
@@ -50,38 +71,11 @@ const champRotation = {
                                                 alt="champion img"></img>
                                         </div>,
                                     ]);
-                                })}
-                            </div>
-                            <h3>Champs for new players.</h3>
-                            <div className="rotationChamps">
-                                {Object.values(league.rotation.freeChampionIdsForNewPlayers).map(
-                                    champ => {
-                                        return m.fragment({}, [
-                                            <div className="champion">
-                                                <p>
-                                                    {
-                                                        league.ChampList.find(
-                                                            char => char.key === champ.toString()
-                                                        ).id
-                                                    }
-                                                </p>
-                                                <img
-                                                    src={`http://ddragon.leagueoflegends.com/cdn/${
-                                                        auth.patch
-                                                    }/img/champion/${
-                                                        league.ChampList.find(
-                                                            char => char.key === champ.toString()
-                                                        ).id
-                                                    }.png`}
-                                                    alt="champion img"></img>
-                                            </div>,
-                                        ]);
-                                    }
-                                )}
-                            </div>
+                                }
+                            )}
                         </div>
                     </div>
-                ))
+                </div>
             ) : (
                 <div className="loading-div">
                     <img

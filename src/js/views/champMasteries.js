@@ -8,7 +8,6 @@ const allMasteries = {
         return m.fragment({}, [
             <div className="allMasteries" id="allMasteries">
                 <h2>Champions info</h2>
-                {(console.log("1: ", league.acc.masteries), console.log("2: ", league.ChampList))}
                 {league.acc.masteries && league.ChampList ? (
                     Object.values(league.acc.masteries).map(champ => {
                         return m.fragment({}, [

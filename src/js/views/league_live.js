@@ -25,8 +25,6 @@ const leagueLive = {
                         <p className="error">Summoner not ingame.</p>)
                     ) : league.liveGame.gameMode ? (
                         [
-                            console.log("Livegame"),
-                            console.log(league.liveGame),
                             <div className="LiveGame-header">
                                 <div className="header">
                                     <p className="prefix">Mode</p>
@@ -51,12 +49,6 @@ const leagueLive = {
                                 </div>
                             </div>,
                             <div className="match">
-                                {/* <div className="header">
-                                      <p className="prefix">summonerName</p>
-                                      <p className="prefix">Champ</p>
-                                      <p className="prefix">teamId</p>
-                                      <p className="prefix">Spells</p>
-                                  </div> */}
                                 <div className="team-header">
                                     <p className="prefix team1">Team 1</p>
                                     <p className="prefix team2">Team 2</p>
