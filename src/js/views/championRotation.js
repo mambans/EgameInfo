@@ -28,27 +28,8 @@ const champRotation = {
                             {Object.values(league.rotation.freeChampionIds).map(champ => {
                                 return m.fragment({}, [
                                     <div className="champion">
-                                        <p>
-                                            {// (console.log(
-                                            //     league.ChampList.find(
-                                            //         char => char.key === champ.toString()
-                                            //     ).id
-                                            // ),
-                                            // league.ChampList.find(
-                                            //     char => char.key === champ.toString()
-                                            // ).id)
-                                            league.imageName(champ)}
-                                        </p>
-                                        <img
-                                            src={`http://ddragon.leagueoflegends.com/cdn/${
-                                                auth.patch
-                                            }/img/champion/${
-                                                // league.ChampList.find(
-                                                //     char => char.key === champ.toString()
-                                                // ).id
-                                                league.imageName(champ)
-                                            }.png`}
-                                            alt="champion img"></img>
+                                        <p>{league.imageName(champ)}</p>
+                                        <img src={league.imageUrl(champ)} alt="champ img"></img>
                                     </div>,
                                 ]);
                             })}
@@ -74,7 +55,7 @@ const champRotation = {
                                                         char => char.key === champ.toString()
                                                     ).id
                                                 }.png`}
-                                                alt="champion img"></img>
+                                                alt="champ img"></img>
                                         </div>,
                                     ]);
                                 }
@@ -84,10 +65,10 @@ const champRotation = {
                 ) : (
                     <div class="body-container">
                         <div className="loading-div">
-                            <img
-                                src="../../img/Eclipse-2s-200px.svg"
-                                className="loading-icon"
-                                alt="Loading"></img>
+                            <div className="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 )}
