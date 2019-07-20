@@ -263,7 +263,6 @@ const league = {
                 })
                 .then(res => {
                     console.log("request sent");
-
                     localStorage.setItem("summonerSpellsList", JSON.stringify(res));
                 });
         }
@@ -271,6 +270,19 @@ const league = {
         Object.values(JSON.parse(localStorage.getItem("summonerSpellsList")).data).map(spell => {
             league.sumSpellsList.push(spell);
         });
+    },
+
+    imageName: champ => {
+        var champName;
+        try {
+            console.log(league.ChampList.find(char => char.key === champ.toString()).id);
+            champName = league.ChampList.find(char => char.key === champ.toString()).id;
+        } catch (e) {
+            console.log(e.message);
+            champName = "";
+        } finally {
+            return champName;
+        }
     },
 };
 
