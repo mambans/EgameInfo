@@ -63,10 +63,10 @@ const featuredGames = {
                         </div>
                     ) : (
                         <div className="loading-div">
-                            <img
-                                src="../../img/Eclipse-2s-200px.svg"
-                                className="loading-icon"
-                                alt="Loading"></img>
+                            <div className="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     )}
                 </div>
