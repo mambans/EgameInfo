@@ -23,7 +23,6 @@ var app = {
         console.log("Device is ready!");
         auth.latestVersion();
         league.championsList();
-        league.summonerSpellsList();
         m.route(document.body, "/", {
             "/": {
                 render: function() {
