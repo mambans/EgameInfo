@@ -10,10 +10,10 @@ const league = {
     ChampList: [],
     sumSpellsList: [],
     error: "",
-    refreshLive: 1200000,
-    refreshAcc: 3600000,
-    refreshRotation: 3600000,
-    refreshFeatured: 1200000,
+    refreshLive: 20 * 60 * 1000, // Change first value (in minutes)
+    refreshAcc: 60 * 60 * 1000,
+    refreshRotation: 60 * 60 * 1000,
+    refreshFeatured: 20 * 60 * 1000,
     search: async name => {
         try {
             var url;
