@@ -284,6 +284,17 @@ const league = {
             return champName;
         }
     },
+
+    imageUrl: champ => {
+        var url = "img/placeholder.png";
+        if (!(league.imageName(champ) === "unknown")) {
+            url = `http://ddragon.leagueoflegends.com/cdn/${
+                auth.patch
+            }/img/champion/${league.imageName(champ)}.png`;
+        }
+
+        return url;
+    },
 };
 
 export { league };

@@ -6,115 +6,154 @@ import { league } from "../models/league";
 import { auth } from "../models/auth";
 
 const leagueLive = {
+    championImgs: null,
     onbeforeremove: function(vnode) {
         vnode.dom.classList.add("slide-out");
         return new Promise(function(resolve) {
             vnode.dom.addEventListener("animationend", resolve);
         });
     },
+    oninit: async () => {
+        await league.summonerSpellsList();
+        // await leagueLive.preloadPlayerChampionsUrls();
+    },
+    playerChampion: player => {
+        var championId;
+        try {
+            championId = league.ChampList.find(
+                char => char.key === league.liveGame.participants[player].championId.toString()
+            ).id;
+        } catch (e) {
+            championId = "";
+        } finally {
+            return championId;
+        }
+    },
+    imageUrl: player => {
+        var champName;
+        var champImgUrl;
+        try {
+            champName = leagueLive.playerChampion(player);
+            champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+        } catch (e) {
+            champImgUrl = "img/placeholder.png";
+        } finally {
+            return champImgUrl;
+        }
+    },
+
+    // preloadPlayerChampionsUrls: async () => {
+    //     var champName;
+    //     await Promise.all(
+    //         Object.keys(league.liveGame.participants).map(async player => {
+    //             champName = await leagueLive.playerChampion(player);
+    //             await leagueLive.championImgs.push({
+    //                 name: champName,
+    //                 url: `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`,
+    //             });
+    //         })
+    //     );
+    // },
+
+    renderLiveContent: () => {
+        if (league.liveGame.status) {
+            console.log("No such summoner");
+            localStorage.removeItem("featuredGames");
+            return m.fragment({}, [<p className="error">Summoner not ingame.</p>]);
+        } else if (league.sumSpellsList) {
+            return m.fragment({}, [
+                <div className="LiveGame-header">
+                    <div className="header">
+                        <p className="prefix">Mode</p>
+                        <p>{league.liveGame.gameMode}</p>
+                    </div>
+
+                    <div className="header">
+                        <p className="prefix">Length</p>
+                        <p>{league.liveGame.gameLength}</p>
+                    </div>
+                    <div className="header">
+                        <p className="prefix">Region</p>
+                        <p>{league.liveGame.platformId}</p>
+                    </div>
+                    <div>
+                        <p className="prefix">Start time</p>
+                        <p>{new Date(league.liveGame.gameStartTime).toString().substring(0, 21)}</p>
+                    </div>
+                </div>,
+                <div className="match">
+                    <div className="team-header">
+                        <p className="prefix team1">Team 1</p>
+                        <p className="prefix team2">Team 2</p>
+                    </div>
+                    <div className="teams" id="teams">
+                        {Object.keys(league.liveGame.participants).map(player => {
+                            var champImgUrl = leagueLive.imageUrl(player);
+
+                            return m.fragment({}, [
+                                <div className="player">
+                                    <p>
+                                        {league.liveGame.participants[
+                                            player
+                                        ].summonerName.toString()}
+                                    </p>
+                                    <div className="champ">
+                                        <img
+                                            className="champ-img"
+                                            src={champImgUrl}
+                                            alt="champ-img"></img>
+                                    </div>
+                                    <div className="summonerSpells">
+                                        <img
+                                            src={`http://ddragon.leagueoflegends.com/cdn/${
+                                                auth.patch
+                                            }/img/spell/${
+                                                league.sumSpellsList.find(
+                                                    spell =>
+                                                        spell.key ===
+                                                        league.liveGame.participants[
+                                                            player
+                                                        ].spell1Id.toString()
+                                                ).id
+                                            }.png`}></img>
+                                        <img
+                                            src={`http://ddragon.leagueoflegends.com/cdn/${
+                                                auth.patch
+                                            }/img/spell/${
+                                                league.sumSpellsList.find(
+                                                    spell =>
+                                                        spell.key ===
+                                                        league.liveGame.participants[
+                                                            player
+                                                        ].spell2Id.toString()
+                                                ).id
+                                            }.png`}></img>
+                                    </div>
+                                </div>,
+                            ]);
+                        })}
+                    </div>
+                </div>,
+            ]);
+        } else {
+            return m.fragment({}, [
+                <div className="loading-div">
+                    <div className="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>,
+            ]);
+        }
+    },
+
     view: () => {
         return m.fragment({}, [
             <div className="title">
                 <h1>Live Game</h1>
             </div>,
             <div className="main-container slide-in">
-                <div class="body-container">
-                    {league.liveGame.status ? (
-                        (console.log("No such summoner"),
-                        localStorage.removeItem("featuredGames"),
-                        <p className="error">Summoner not ingame.</p>)
-                    ) : league.liveGame.gameMode ? (
-                        [
-                            <div className="LiveGame-header">
-                                <div className="header">
-                                    <p className="prefix">Mode</p>
-                                    <p>{league.liveGame.gameMode}</p>
-                                </div>
-
-                                <div className="header">
-                                    <p className="prefix">Length</p>
-                                    <p>{league.liveGame.gameLength}</p>
-                                </div>
-                                <div className="header">
-                                    <p className="prefix">Region</p>
-                                    <p>{league.liveGame.platformId}</p>
-                                </div>
-                                <div>
-                                    <p className="prefix">Start time</p>
-                                    <p>
-                                        {new Date(league.liveGame.gameStartTime)
-                                            .toString()
-                                            .substring(0, 21)}
-                                    </p>
-                                </div>
-                            </div>,
-                            <div className="match">
-                                <div className="team-header">
-                                    <p className="prefix team1">Team 1</p>
-                                    <p className="prefix team2">Team 2</p>
-                                </div>
-                                <div className="teams" id="teams">
-                                    {Object.keys(league.liveGame.participants).map(player => {
-                                        var champName = league.ChampList.find(
-                                            char =>
-                                                char.key ===
-                                                league.liveGame.participants[
-                                                    player
-                                                ].championId.toString()
-                                        ).id;
-
-                                        var champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
-
-                                        return m.fragment({}, [
-                                            <div className="player">
-                                                <p>
-                                                    {league.liveGame.participants[
-                                                        player
-                                                    ].summonerName.toString()}
-                                                </p>
-                                                <div className="champ">
-                                                    <img
-                                                        className="champ-img"
-                                                        src={champImgUrl}
-                                                        alt="champ-img"></img>
-                                                </div>
-                                                <div className="summonerSpells">
-                                                    <img
-                                                        src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
-                                                            league.sumSpellsList.find(
-                                                                spell =>
-                                                                    spell.key ===
-                                                                    league.liveGame.participants[
-                                                                        player
-                                                                    ].spell1Id.toString()
-                                                            ).id
-                                                        }.png`}></img>
-                                                    <img
-                                                        src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${
-                                                            league.sumSpellsList.find(
-                                                                spell =>
-                                                                    spell.key ===
-                                                                    league.liveGame.participants[
-                                                                        player
-                                                                    ].spell2Id.toString()
-                                                            ).id
-                                                        }.png`}></img>
-                                                </div>
-                                            </div>,
-                                        ]);
-                                    })}
-                                </div>
-                            </div>,
-                        ]
-                    ) : (
-                        <div className="loading-div">
-                            <img
-                                src="../../img/Eclipse-2s-200px.svg"
-                                className="loading-icon"
-                                alt="Loading"></img>
-                        </div>
-                    )}
-                </div>
+                <div class="body-container">{leagueLive.renderLiveContent()}</div>
             </div>,
         ]);
     },
