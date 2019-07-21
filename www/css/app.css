@@ -402,9 +402,9 @@ form {
 
 @media screen and (min-width: 1080px) {
   .body-container {
-    width: 75%; } }
-
-@media screen and (min-width: 1080px) {
+    width: 75%; }
+  .main-container {
+    margin: 7em auto 3.2rem; }
   form {
     width: 500px; } }
 
@@ -513,7 +513,8 @@ form {
       width: 50%;
       border-top: 1px solid; }
   .bottom-nav {
-    height: 4rem; } }
+    height: 4rem;
+    bottom: unset; } }
 
 select {
   display: block;
@@ -544,7 +545,9 @@ select {
 
 @media screen and (min-width: 1080px) {
   input.form-control {
-    width: 500px; } }
+    width: 500px; }
+  select {
+    width: 350px; } }
 
 .slide-in {
   animation: moveFromRight 400ms ease both;
@@ -684,14 +687,23 @@ select {
     border-bottom: 1px solid #c9c6ca;
     margin-bottom: 2rem;
     padding: 1rem 0; }
+    .teams .player .champ {
+      align-self: center; }
+    .teams .player .summonerSpells img {
+      width: 60px;
+      margin: 0 5px; }
+    .teams .player > p {
+      align-self: center;
+      grid-column-start: 1;
+      grid-column-end: 3; }
     .teams .player div:nth-child(1) {
       color: #136d90;
       grid-row: 1;
       grid-column-start: 1;
       grid-column-end: 3; }
-    .teams .player div:nth-child(2) {
+    .teams .player .champ {
       grid-row: 2; }
-    .teams .player div::nth-child(3) {
+    .teams .player .summonerSpells {
       grid-row: 2; }
   .teams div {
     text-align: center; }
@@ -700,7 +712,7 @@ select {
   padding-bottom: 0; }
 
 .champ .champ-img {
-  widows: 75px; }
+  width: 60px; }
 
 @media screen and (min-width: 1080px) {
   .LiveGame-header {
@@ -725,15 +737,17 @@ select {
     grid-template-columns: 50% 50%; }
     .teams .player {
       width: 100%;
+      padding: 20px 0;
       display: flex;
       border-bottom: none;
-      margin-bottom: 0;
-      padding: 0; }
+      margin-bottom: 0; }
+      .teams .player > p {
+        max-width: 45%; }
       .teams .player div:nth-child(1) {
         width: 30%; }
-      .teams .player div:nth-child(2) {
+      .teams .player .champ {
         width: 25%; }
-      .teams .player div:nth-child(3) {
+      .teams .player .summonerSpells {
         width: 15%; }
     .teams .player:nth-child(1) {
       grid-column: 1;
@@ -804,6 +818,16 @@ select {
   .allMasteries h3 {
     text-align: center;
     border-bottom: 1px solid #c9c6ca; }
+  .allMasteries .champion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #c9c6ca; }
+    .allMasteries .champion img {
+      width: 60px;
+      margin-left: 25px; }
+    .allMasteries .champion h3 {
+      border-bottom: none; }
 
 @media screen and (min-width: 1080px) {
   .masteries {
@@ -836,12 +860,21 @@ h3 {
   text-align: center;
   margin-bottom: 100px;
   flex-wrap: wrap; }
+  .rotationChamps .champion {
+    padding: 0px 1rem;
+    width: 33%; }
+    .rotationChamps .champion img {
+      width: 75%; }
   .rotationChamps p {
     width: 100px; }
 
 @media screen and (min-width: 1080px) {
   .rotationChamps {
-    flex-wrap: unset; }
+    justify-content: center; }
+    .rotationChamps .champion {
+      width: unset; }
+      .rotationChamps .champion img {
+        width: unset; }
     .rotationChamps p {
       width: unset; } }
 
@@ -896,7 +929,13 @@ h3 {
     margin: auto; }
     .featured-game .header p,
     .featured-game .header-content p {
-      text-align: center; }
+      text-align: center;
+      width: 33%; }
+    .featured-game .header .prefix,
+    .featured-game .header-content .prefix {
+      max-width: unset; }
+  .featured-game .header.prefix {
+    max-width: unset; }
   .featured-game .game .players {
     flex-wrap: unset;
     display: grid;
@@ -938,25 +977,33 @@ h3 {
   .loading-div img.loading-icon {
     width: 25%; }
 
-@media screen and (min-width: 1080px) {
-  .bottom-nav {
-    bottom: unset; }
-  .main-container {
-    margin: 7em auto 3.2rem; }
-  .robin {
-    max-width: 300px;
-    float: right; }
-  .main-container .secondMenu {
-    top: 76px;
-    height: 50px;
-    display: flex;
-    align-items: center; }
-  .main-container .details_header {
-    margin-top: 125px; }
-  .button,
-  .packed-btn {
-    height: 60px;
-    width: unset; }
-  select {
-    width: 350px; } }
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 192px;
+  height: 192px; }
+
+.lds-ripple div {
+  position: absolute;
+  border: 10px solid #0370b9;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite; }
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s; }
+
+@keyframes lds-ripple {
+  0% {
+    top: 84px;
+    left: 84px;
+    width: 0;
+    height: 0;
+    opacity: 1; }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 174px;
+    height: 174px;
+    opacity: 0; } }
 
