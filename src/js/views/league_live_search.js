@@ -27,7 +27,6 @@ const leagueLiveSearch = {
                         onsubmit={async e => {
                             e.preventDefault();
                             if (vnode.state.valid && vnode.state.name) {
-                                // await league.championsList();
                                 await league.live(encodeURI(vnode.state.name.trim()));
                             }
                         }}>

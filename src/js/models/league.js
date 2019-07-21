@@ -263,6 +263,7 @@ const league = {
                 })
                 .then(res => {
                     console.log("request sent");
+                    console.log("TCL: res", res);
                     localStorage.setItem("summonerSpellsList", JSON.stringify(res));
                 });
         }
@@ -275,11 +276,10 @@ const league = {
     imageName: champ => {
         var champName;
         try {
-            console.log(league.ChampList.find(char => char.key === champ.toString()).id);
             champName = league.ChampList.find(char => char.key === champ.toString()).id;
         } catch (e) {
             console.log(e.message);
-            champName = "";
+            champName = "unknown";
         } finally {
             return champName;
         }

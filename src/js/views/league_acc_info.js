@@ -43,7 +43,6 @@ const league_acc = {
                                 className="btn btn-primary"
                                 onclick={async () => {
                                     if (!league.acc.masteries || !league.ChampList) {
-                                        // await league.championsList();
                                         await league.allMasteries();
                                     }
                                     vnode.state.mastVisible = !vnode.state.mastVisible;
