@@ -25,7 +25,6 @@ const champRotation = {
                     <div class="body-container">
                         <h3>Champions</h3>
                         <div className="rotationChamps">
-                            {console.log(league.ChampList)}
                             {Object.values(league.rotation.freeChampionIds).map(champ => {
                                 return m.fragment({}, [
                                     <div className="champion">

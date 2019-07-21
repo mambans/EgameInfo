@@ -42,19 +42,6 @@ const leagueLive = {
         }
     },
 
-    // preloadPlayerChampionsUrls: async () => {
-    //     var champName;
-    //     await Promise.all(
-    //         Object.keys(league.liveGame.participants).map(async player => {
-    //             champName = await leagueLive.playerChampion(player);
-    //             await leagueLive.championImgs.push({
-    //                 name: champName,
-    //                 url: `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`,
-    //             });
-    //         })
-    //     );
-    // },
-
     renderLiveContent: () => {
         if (league.liveGame.status) {
             console.log("No such summoner");

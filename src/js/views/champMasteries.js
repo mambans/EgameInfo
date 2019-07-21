@@ -28,7 +28,6 @@ const allMasteries = {
                                         ).id
                                     }.png`}
                                     alt="champion img"></img>
-                                ,
                             </div>,
                             <div className="masteries">
                                 <div>

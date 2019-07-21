@@ -17,13 +17,14 @@ const league = {
     search: async name => {
         try {
             var url;
+
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
             );
 
             if (
                 new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
-                    3600000 ||
+                    league.refreshAcc ||
                 !JSON.parse(localStorage.getItem(`${name}-date`)) ||
                 !localStorage.getItem(name)
             ) {
@@ -39,7 +40,6 @@ const league = {
             }
 
             league.acc = JSON.parse(localStorage.getItem(name));
-
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${league.acc.id}?${auth.apiKey}`
             );
@@ -66,10 +66,11 @@ const league = {
     live: async name => {
         try {
             var url;
+            var liveAcc;
+
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
             );
-            var liveAcc;
 
             if (
                 (new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
@@ -93,7 +94,6 @@ const league = {
             }
 
             liveAcc = JSON.parse(localStorage.getItem(name)).id;
-
             url = encodeURIComponent(
                 `https:/euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${liveAcc}?${auth.apiKey}`
             );
@@ -116,7 +116,6 @@ const league = {
                             `${name}-live-date`,
                             JSON.stringify(new Date().getTime())
                         );
-                        // league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
                     })
                     .catch(e => {
                         console.log("Error", e);
@@ -125,10 +124,6 @@ const league = {
             }
 
             league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
-
-            // else {
-            //     league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
-            // }
 
             m.route.set("/league/live/:name", { name: liveAcc });
         } catch (e) {
@@ -140,6 +135,7 @@ const league = {
         try {
             var name = league.acc.id;
             var url;
+
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${league.acc.id}?${auth.apiKey}`
             );
@@ -173,6 +169,7 @@ const league = {
 
     champRotation: async () => {
         var url;
+
         url = encodeURIComponent(
             `https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations?${auth.apiKey}`
         );
@@ -203,6 +200,7 @@ const league = {
 
     featuredGamesSearch: async () => {
         var url;
+
         url = encodeURIComponent(
             `https://euw1.api.riotgames.com/lol/spectator/v4/featured-games?${auth.apiKey}`
         );
