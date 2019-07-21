@@ -10,6 +10,10 @@ const league = {
     ChampList: [],
     sumSpellsList: [],
     error: "",
+    refreshLive: 1200000,
+    refreshAcc: 3600000,
+    refreshRotation: 3600000,
+    refreshFeatured: 1200000,
     search: async name => {
         try {
             var url;
@@ -69,7 +73,7 @@ const league = {
 
             if (
                 (new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
-                    3600000) |
+                    league.refreshAcc) |
                     !localStorage.getItem(`${name}-date`) ||
                 !localStorage.getItem(name)
             ) {
@@ -97,7 +101,7 @@ const league = {
             if (
                 new Date().getTime() -
                     JSON.parse(localStorage.getItem(localStorage.getItem(`${name}-live-date`))) >=
-                    1800000 ||
+                    league.refreshLive ||
                 !localStorage.getItem(`${name}-live-date`) ||
                 !localStorage.getItem(`${name}-live`)
             ) {
@@ -142,7 +146,7 @@ const league = {
 
             if (
                 new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-mast-date`)) >=
-                    3600000 ||
+                    league.refreshAcc ||
                 !JSON.parse(localStorage.getItem(`${name}-mast-date`)) ||
                 !localStorage.getItem(`${name}-mast`)
             ) {
@@ -175,7 +179,7 @@ const league = {
 
         if (
             new Date().getTime() - JSON.parse(localStorage.getItem("currentRotation-date")) >=
-                3600000 ||
+                league.refreshRotation ||
             !JSON.parse(localStorage.getItem("currentRotation-date")) ||
             !localStorage.getItem("currentRotation")
         ) {
@@ -205,7 +209,7 @@ const league = {
 
         if (
             new Date().getTime() - JSON.parse(localStorage.getItem("featuredGames-date")) >=
-                1200000 ||
+                league.refreshFeatured ||
             !localStorage.getItem("featuredGames-date") ||
             !localStorage.getItem("featuredGames")
         ) {
