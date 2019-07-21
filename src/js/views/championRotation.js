@@ -2,6 +2,7 @@
 import m from "mithril";
 
 import { league } from "./../models/league";
+import { ddragon } from "./../models/dataDragon";
 import { auth } from "../models/auth";
 
 const champRotation = {
@@ -28,8 +29,8 @@ const champRotation = {
                             {Object.values(league.rotation.freeChampionIds).map(champ => {
                                 return m.fragment({}, [
                                     <div className="champion">
-                                        <p>{league.imageName(champ)}</p>
-                                        <img src={league.imageUrl(champ)} alt="champ img"></img>
+                                        <p>{ddragon.imageName(champ)}</p>
+                                        <img src={ddragon.imageUrl(champ)} alt="champ img"></img>
                                     </div>,
                                 ]);
                             })}

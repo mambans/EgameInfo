@@ -12,6 +12,7 @@ import { league_acc } from "./views/league_acc_info";
 import { champRotation } from "./views/championRotation";
 import { featuredGames } from "./views/featured_games";
 import { league } from "./models/league";
+import { ddragon } from "./models/dataDragon";
 import { auth } from "./models/auth";
 
 var app = {
@@ -22,7 +23,7 @@ var app = {
     onDeviceReady: function() {
         console.log("Device is ready!");
         auth.latestVersion();
-        league.championsList();
+        ddragon.championsList();
         m.route(document.body, "/", {
             "/": {
                 render: function() {

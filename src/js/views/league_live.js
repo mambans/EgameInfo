@@ -2,7 +2,7 @@
 
 import m from "mithril";
 import { league } from "../models/league";
-
+import { ddragon } from "./../models/dataDragon";
 import { auth } from "../models/auth";
 
 const leagueLive = {
@@ -14,7 +14,7 @@ const leagueLive = {
         });
     },
     oninit: async () => {
-        await league.summonerSpellsList();
+        await ddragon.summonerSpellsList();
         // await leagueLive.preloadPlayerChampionsUrls();
     },
     playerChampion: player => {
