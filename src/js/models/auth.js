@@ -6,7 +6,7 @@ import { league } from "./league";
 const auth = {
     patch: "9.13.1",
     manualPatch: "9.12.1",
-    apiKey: "api_key=RGAPI-dd243b1d-dd34-41a3-8400-309df77e300c",
+    apiKey: "api_key=RGAPI-7562b30e-2f35-4dfd-87d7-1e742a3ca2dd",
     proxy:
         "http://www.student.bth.se/~ropb16/dbwebb-kurser/webapp/me/kmom10/proj/www/proxy.php?url=",
 
@@ -22,9 +22,9 @@ const auth = {
                 url: auth.proxy + url,
             })
             .then(res => {
-                localStorage.setItem("patches", JSON.stringify(res));
-                localStorage.setItem("patches-date", JSON.stringify(new Date().getTime()));
-                auth.patch = JSON.parse(localStorage.getItem("patches")).patches.pop().name + ".1";
+                localStorage.setItem("patche", JSON.stringify(res));
+                localStorage.setItem("patche-date", JSON.stringify(new Date().getTime()));
+                auth.patch = JSON.parse(localStorage.getItem("patche")).patches.pop().name + ".1";
             });
     },
 };
