@@ -9,6 +9,7 @@ const ddragon = {
     championImgs: [],
     statusChampion: null,
     statusSpells: null,
+    statusRotationChampions: null,
     championsList: async () => {
         var url;
         url = encodeURIComponent(
@@ -85,21 +86,17 @@ const ddragon = {
                 console.log("finally");
                 // console.log(ddragon.championImgs);
 
-                // await HERE
-                // if (!ddragon.championImgs.find(champion => champion.name === champName)) {
-                //     console.log("push");
-                //     ddragon.championImgs.push({
-                //         name: champName,
-                //         url: champImgUrl,
-                //     });
-                // }
-
-                ddragon.championImgs.push({
-                    name: champName,
-                    url: champImgUrl,
-                });
+                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                    console.log("push");
+                    ddragon.championImgs.push({
+                        name: champName,
+                        url: champImgUrl,
+                    });
+                }
             }
         });
+
+        console.log("-----NEXT ROT-----");
 
         Object.values(league.rotation.freeChampionIdsForNewPlayers).map(champ => {
             var champName;
@@ -115,35 +112,18 @@ const ddragon = {
                 console.log("finally");
                 // console.log(ddragon.championImgs);
 
-                // await HERE
-                // if (!ddragon.championImgs.find(champion => champion.name === champName)) {
-                //     console.log("push");
-                //     ddragon.championImgs.push({
-                //         name: champName,
-                //         url: champImgUrl,
-                //     });
-                // }
-
-                ddragon.championImgs.push({
-                    name: champName,
-                    url: champImgUrl,
-                });
-
-                ddragon.statusChampion = 200;
+                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                    console.log("push");
+                    ddragon.championImgs.push({
+                        name: champName,
+                        url: champImgUrl,
+                    });
+                }
             }
         });
 
-        console.log("Done");
-        league.rotationDone = "Done";
-
-        // var url = "img/placeholder.png";
-        // if (!(ddragon.imageName(champ) === "unknown")) {
-        //     url = `http://ddragon.leagueoflegends.com/cdn/${
-        //         auth.patch
-        //     }/img/champion/${ddragon.imageName(champ)}.png`;
-        // }
-
-        // return url;
+        ddragon.statusRotationChampions = 200;
+        console.log(ddragon.statusRotationChampions);
     },
 
     preloadChampionImgUrl: async () => {
@@ -164,12 +144,6 @@ const ddragon = {
                         url: champImgUrl,
                     });
                 }
-
-                // await HERE
-                // ddragon.championImgs.push({
-                //     name: champName,
-                //     url: champImgUrl,
-                // });
             }
         });
         ddragon.statusChampion = 200;
@@ -185,6 +159,11 @@ const ddragon = {
         }
 
         return url;
+    },
+
+    imageUrlV2: champ => {
+        return ddragon.championImgs.find(champion => champion.name === ddragon.imageName(champ))
+            .url;
     },
 };
 

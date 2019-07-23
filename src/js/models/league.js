@@ -5,7 +5,6 @@ import { auth } from "./auth";
 const league = {
     acc: null,
     liveGame: null,
-    rotation: null,
     featuredGames: null,
     ChampList: [],
     sumSpellsList: [],
