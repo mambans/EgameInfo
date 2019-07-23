@@ -39,6 +39,7 @@ const league = {
             }
 
             league.acc = JSON.parse(localStorage.getItem(name));
+
             url = encodeURIComponent(
                 `https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${league.acc.id}?${auth.apiKey}`
             );
@@ -55,7 +56,6 @@ const league = {
                       });
 
             league.acc.totalMastery = JSON.parse(localStorage.getItem(`${name}-TotalMastery`));
-
             m.route.set("/league/acc/:name", { name: league.acc.name });
         } catch (e) {
             console.log("Error", e);
@@ -123,7 +123,6 @@ const league = {
             }
 
             league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
-
             m.route.set("/league/live/:name", { name: liveAcc });
         } catch (e) {
             console.log("Error", e);

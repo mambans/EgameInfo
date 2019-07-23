@@ -6,7 +6,6 @@ import { ddragon } from "./../models/dataDragon";
 import { auth } from "../models/auth";
 
 const leagueLive = {
-    championImgs: null,
     onbeforeremove: function(vnode) {
         vnode.dom.classList.add("slide-out");
         return new Promise(function(resolve) {
@@ -16,7 +15,6 @@ const leagueLive = {
     oninit: () => {
         ddragon.summonerSpellsList();
         ddragon.preloadChampionImgUrl();
-        // await leagueLive.preloadPlayerChampionsUrls();
     },
     playerChampion: player => {
         var championId;
@@ -31,18 +29,6 @@ const leagueLive = {
             return championId;
         }
     },
-    imageUrl: player => {
-        var champName;
-        var champImgUrl;
-        try {
-            champName = leagueLive.playerChampion(player);
-            champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
-        } catch (e) {
-            champImgUrl = "img/placeholder.png";
-        } finally {
-            return champImgUrl;
-        }
-    },
 
     renderLiveContent: () => {
         if (league.liveGame.status) {
@@ -50,12 +36,6 @@ const leagueLive = {
             localStorage.removeItem("featuredGames");
             return m.fragment({}, [<p className="error">Summoner not ingame.</p>]);
         } else if (ddragon.statusSpells === 200 && ddragon.statusChampion === 200) {
-            // console.log("RENDER LIVE CONTENT");
-            // console.log(ddragon.championImgs);
-            // console.log(league.sumSpellsList);
-            // console.log(ddragon.statusChampion);
-            // console.log(ddragon.statusSpells);
-
             return m.fragment({}, [
                 <div className="LiveGame-header">
                     <div className="header">
