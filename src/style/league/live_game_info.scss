@@ -48,6 +48,21 @@
         margin-bottom: 2rem;
         padding: 1rem 0;
 
+        &.team-100:first-of-type {
+            border-top: 8px solid blue;
+        }
+        &.team-200:first-of-type {
+            border-top: 8px solid red !important;
+        }
+
+        &.team-100 p {
+            color: blue;
+        }
+
+        &.team-200 p {
+            color: red;
+        }
+
         .champ {
             align-self: center;
         }
@@ -139,6 +154,21 @@
             & > p {
                 max-width: 45%;
             }
+
+            // &.team-100:first-of-type {
+            //     border-top: 8px solid blue;
+            // }
+            // &.team-200:first-of-type {
+            //     border-top: 8px solid red;
+            // }
+
+            // &.team-100 p {
+            //     color: blue;
+            // }
+
+            // &.team-200 p {
+            //     color: red;
+            // }
 
             div:nth-child(1) {
                 width: 30%;

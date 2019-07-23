@@ -90,7 +90,12 @@ const leagueLive = {
                             console.log(league.liveGame.participants[player].teamId.toString());
 
                             return m.fragment({}, [
-                                <div className="player">
+                                <div
+                                    className={
+                                        "player " +
+                                        "team-" +
+                                        league.liveGame.participants[player].teamId.toString()
+                                    }>
                                     <p>
                                         {league.liveGame.participants[
                                             player
