@@ -13,8 +13,9 @@ const leagueLive = {
             vnode.dom.addEventListener("animationend", resolve);
         });
     },
-    oninit: async () => {
-        await ddragon.summonerSpellsList();
+    oninit: () => {
+        ddragon.summonerSpellsList();
+        ddragon.preloadChampionImgUrl();
         // await leagueLive.preloadPlayerChampionsUrls();
     },
     playerChampion: player => {
@@ -24,6 +25,7 @@ const leagueLive = {
                 char => char.key === league.liveGame.participants[player].championId.toString()
             ).id;
         } catch (e) {
+            console.log(e);
             championId = "";
         } finally {
             return championId;
@@ -47,7 +49,13 @@ const leagueLive = {
             console.log("No such summoner");
             localStorage.removeItem("featuredGames");
             return m.fragment({}, [<p className="error">Summoner not ingame.</p>]);
-        } else if (league.sumSpellsList) {
+        } else if (ddragon.statusSpells === 200 && ddragon.statusChampion === 200) {
+            // console.log("RENDER LIVE CONTENT");
+            // console.log(ddragon.championImgs);
+            // console.log(league.sumSpellsList);
+            // console.log(ddragon.statusChampion);
+            // console.log(ddragon.statusSpells);
+
             return m.fragment({}, [
                 <div className="LiveGame-header">
                     <div className="header">
@@ -75,7 +83,11 @@ const leagueLive = {
                     </div>
                     <div className="teams" id="teams">
                         {Object.keys(league.liveGame.participants).map(player => {
-                            var champImgUrl = leagueLive.imageUrl(player);
+                            // var champImgUrl = leagueLive.imageUrl(player);
+                            var champImgUrl = ddragon.championImgs.find(
+                                champ => champ.name === leagueLive.playerChampion(player)
+                            ).url;
+                            console.log(league.liveGame.participants[player].teamId.toString());
 
                             return m.fragment({}, [
                                 <div className="player">

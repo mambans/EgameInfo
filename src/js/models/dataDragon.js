@@ -1,9 +1,14 @@
 import m from "mithril";
 
-import { league } from "../models/league";
-import { auth } from "../models/auth";
+import { league } from "./league";
+import { auth } from "./auth";
+
+import { leagueLive } from "./../views/league_live";
 
 const ddragon = {
+    championImgs: [],
+    statusChampion: null,
+    statusSpells: null,
     championsList: async () => {
         var url;
         url = encodeURIComponent(
@@ -27,6 +32,7 @@ const ddragon = {
     },
 
     summonerSpellsList: async () => {
+        console.log("SUMMONERSPELLS START");
         var url;
         url = encodeURIComponent(
             `https://ddragon.leagueoflegends.com/cdn/${auth.patch}/data/en_US/summoner.json?${auth.apiKey}`
@@ -47,6 +53,9 @@ const ddragon = {
         Object.values(JSON.parse(localStorage.getItem("summonerSpellsList")).data).map(spell => {
             league.sumSpellsList.push(spell);
         });
+
+        ddragon.statusSpells = 200;
+        console.log("SUMMONERSPELLS END");
     },
 
     imageName: champ => {
@@ -59,6 +68,112 @@ const ddragon = {
         } finally {
             return champName;
         }
+    },
+
+    PreloadRotationChampionImageUrl: () => {
+        Object.values(league.rotation.freeChampionIds).map(champ => {
+            var champName;
+            var champImgUrl;
+
+            try {
+                champName = ddragon.imageName(champ);
+                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+            } catch (e) {
+                console.log("catch");
+                champImgUrl = "img/placeholder.png";
+            } finally {
+                console.log("finally");
+                // console.log(ddragon.championImgs);
+
+                // await HERE
+                // if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                //     console.log("push");
+                //     ddragon.championImgs.push({
+                //         name: champName,
+                //         url: champImgUrl,
+                //     });
+                // }
+
+                ddragon.championImgs.push({
+                    name: champName,
+                    url: champImgUrl,
+                });
+            }
+        });
+
+        Object.values(league.rotation.freeChampionIdsForNewPlayers).map(champ => {
+            var champName;
+            var champImgUrl;
+
+            try {
+                champName = ddragon.imageName(champ);
+                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+            } catch (e) {
+                console.log("catch");
+                champImgUrl = "img/placeholder.png";
+            } finally {
+                console.log("finally");
+                // console.log(ddragon.championImgs);
+
+                // await HERE
+                // if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                //     console.log("push");
+                //     ddragon.championImgs.push({
+                //         name: champName,
+                //         url: champImgUrl,
+                //     });
+                // }
+
+                ddragon.championImgs.push({
+                    name: champName,
+                    url: champImgUrl,
+                });
+
+                ddragon.statusChampion = 200;
+            }
+        });
+
+        console.log("Done");
+        league.rotationDone = "Done";
+
+        // var url = "img/placeholder.png";
+        // if (!(ddragon.imageName(champ) === "unknown")) {
+        //     url = `http://ddragon.leagueoflegends.com/cdn/${
+        //         auth.patch
+        //     }/img/champion/${ddragon.imageName(champ)}.png`;
+        // }
+
+        // return url;
+    },
+
+    preloadChampionImgUrl: async () => {
+        console.log("PRELOAD CHAMPIONURLS START");
+
+        Object.keys(league.liveGame.participants).map(player => {
+            var champName;
+            var champImgUrl;
+            try {
+                champName = leagueLive.playerChampion(player);
+                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+            } catch (e) {
+                champImgUrl = "img/placeholder.png";
+            } finally {
+                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                    ddragon.championImgs.push({
+                        name: champName,
+                        url: champImgUrl,
+                    });
+                }
+
+                // await HERE
+                // ddragon.championImgs.push({
+                //     name: champName,
+                //     url: champImgUrl,
+                // });
+            }
+        });
+        ddragon.statusChampion = 200;
+        console.log("PRELOAD CHAMPIONURLS END");
     },
 
     imageUrl: champ => {

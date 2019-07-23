@@ -2,6 +2,7 @@
 
 import m from "mithril";
 import { league } from "../models/league";
+import { ddragon } from "../models/dataDragon";
 
 const leagueLiveSearch = {
     onbeforeremove: function(vnode) {
@@ -27,6 +28,10 @@ const leagueLiveSearch = {
                         onsubmit={async e => {
                             e.preventDefault();
                             if (vnode.state.valid && vnode.state.name) {
+                                console.log("START SEARCH");
+
+                                ddragon.statusChampion = null;
+                                ddragon.statusSpells = null;
                                 await league.live(encodeURI(vnode.state.name.trim()));
                             }
                         }}>

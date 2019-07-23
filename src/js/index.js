@@ -24,6 +24,8 @@ var app = {
         console.log("Device is ready!");
         auth.latestVersion();
         ddragon.championsList();
+        console.log("Preload Done!");
+
         m.route(document.body, "/", {
             "/": {
                 render: function() {
