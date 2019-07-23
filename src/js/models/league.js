@@ -132,7 +132,7 @@ const league = {
 
     allMasteries: async () => {
         try {
-            var name = league.acc.id;
+            var name = league.acc.name;
             var url;
 
             url = encodeURIComponent(
