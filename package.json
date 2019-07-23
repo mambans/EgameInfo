@@ -21,7 +21,6 @@
         "cordova-android": "8.0.0",
         "cordova-browser": "6.0.0",
         "cordova-plugin-splashscreen": "^5.0.2",
-        "lol-champions": "^8.11.0",
         "mithril": "^2.0.0-rc.4"
     },
     "devDependencies": {
