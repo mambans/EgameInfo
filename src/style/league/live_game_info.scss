@@ -39,6 +39,7 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
 
     .player {
         width: 100%;
@@ -48,20 +49,29 @@
         margin-bottom: 2rem;
         padding: 1rem 0;
 
-        &.team-100:first-of-type {
+        &.team-100 {
             border-top: 8px solid blue;
         }
-        &.team-200:first-of-type {
-            border-top: 8px solid red !important;
+
+        &.team-100 ~ .player.team-100 {
+            border-top: none;
         }
 
-        &.team-100 p {
-            color: blue;
+        &.team-200 {
+            border-top: 8px solid red;
         }
 
-        &.team-200 p {
-            color: red;
+        &.team-200 ~ .player.team-200 {
+            border-top: none;
         }
+
+        // &.team-100 p {
+        //     color: blue;
+        // }
+
+        // &.team-200 p {
+        //     color: red;
+        // }
 
         .champ {
             align-self: center;
