@@ -10,6 +10,7 @@ const ddragon = {
     statusChampion: null,
     statusSpells: null,
     statusRotationChampions: null,
+    statusMasterychamps: null,
     championsList: async () => {
         var url;
         url = encodeURIComponent(
@@ -61,14 +62,62 @@ const ddragon = {
 
     imageName: champ => {
         var champName;
-        try {
-            champName = league.ChampList.find(char => char.key === champ.toString()).id;
-        } catch (e) {
-            console.log(e.message);
-            champName = "unknown";
-        } finally {
-            return champName;
+
+        if (Number.isInteger(champ)) {
+            try {
+                champName = league.ChampList.find(char => char.key === champ.toString()).id;
+            } catch (e) {
+                console.log("error: ", e.message);
+                champName = "unknown";
+            } finally {
+                return champName;
+            }
+        } else {
+            try {
+                champName = league.ChampList.find(char => char.key === champ.toString()).id;
+            } catch (e) {
+                console.log("error: ", e.message);
+                champName = "unknown";
+            } finally {
+                return champName;
+            }
         }
+    },
+
+    // imageName: champ => {
+    //     var champName;
+    //     try {
+    //         champName = league.ChampList.find(char => char.key === champ.toString()).id;
+    //     } catch (e) {
+    //         console.log(e.message);
+    //         champName = "unknown";
+    //     } finally {
+    //         return champName;
+    //     }
+    // },
+
+    PreloadMasteryChampions: () => {
+        Object.values(league.acc.masteries).map(champ => {
+            var champName;
+            var champImgUrl;
+
+            try {
+                champName = league.ChampList.find(char => char.key === champ.championId.toString())
+                    .id;
+                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+            } catch (e) {
+                champImgUrl = "img/placeholder.png";
+            } finally {
+                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                    ddragon.championImgs.push({
+                        name: champName,
+                        url: champImgUrl,
+                    });
+                }
+            }
+        });
+
+        ddragon.statusMasterychamps = 200;
     },
 
     PreloadRotationChampionImageUrl: () => {

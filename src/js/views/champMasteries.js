@@ -1,32 +1,25 @@
 import m from "mithril";
 
-import { league } from "./../models/league";
+import { league } from "../models/league";
 import { auth } from "../models/auth";
+import { ddragon } from "../models/dataDragon";
 
 const allMasteries = {
+    oninit: () => {
+        ddragon.statusMasterychamps = null;
+        ddragon.PreloadMasteryChampions();
+    },
     view: () => {
         return m.fragment({}, [
             <div className="allMasteries" id="allMasteries">
                 <h2>Champions info</h2>
-                {league.acc.masteries && league.ChampList ? (
+                {league.acc.masteries && ddragon.statusMasterychamps === 200 ? (
                     Object.values(league.acc.masteries).map(champ => {
                         return m.fragment({}, [
                             <div className="champion">
-                                <h3>
-                                    {
-                                        league.ChampList.find(
-                                            char => char.key === champ.championId.toString()
-                                        ).id
-                                    }
-                                </h3>
+                                <h3>{ddragon.imageName(champ.championId)}</h3>
                                 <img
-                                    src={`http://ddragon.leagueoflegends.com/cdn/${
-                                        auth.patch
-                                    }/img/champion/${
-                                        league.ChampList.find(
-                                            char => char.key === champ.championId.toString()
-                                        ).id
-                                    }.png`}
+                                    src={ddragon.imageUrlV2(champ.championId)}
                                     alt="champion img"></img>
                             </div>,
                             <div className="masteries">
