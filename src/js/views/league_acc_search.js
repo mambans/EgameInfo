@@ -38,7 +38,9 @@ const leagueAccSearch = {
                                 placeholder="Enter Summoner name"
                                 aria-describedby="summonernameHelp"
                                 onchange={e => {
-                                    vnode.state.valid = /^[0-9A-Za-z _.]+$/.test(e.target.value);
+                                    vnode.state.valid = /^[0-9A-Za-zåäöÅÄÖ _.]+$/.test(
+                                        e.target.value
+                                    );
                                     vnode.state.name = e.target.value;
                                 }}></input>
                             <small id="summonernameHelp" className="form-text text-muted">
