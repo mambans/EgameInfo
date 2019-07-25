@@ -11,9 +11,6 @@ const leagueLiveSearch = {
             vnode.dom.addEventListener("animationend", resolve);
         });
     },
-    // oninit: () => {
-    //     league.live();
-    // },
     valid: true,
     name: "",
     view: vnode => {
