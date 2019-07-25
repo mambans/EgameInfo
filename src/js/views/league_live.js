@@ -12,10 +12,12 @@ const leagueLive = {
             vnode.dom.addEventListener("animationend", resolve);
         });
     },
+
     oninit: () => {
         ddragon.summonerSpellsList();
         ddragon.preloadChampionImgUrl();
     },
+
     playerChampion: player => {
         var championId;
         try {
@@ -67,8 +69,6 @@ const leagueLive = {
                             var champImgUrl = ddragon.championImgs.find(
                                 champ => champ.name === leagueLive.playerChampion(player)
                             ).url;
-                            console.log(league.liveGame.participants[player].teamId.toString());
-
                             return m.fragment({}, [
                                 <div
                                     className={

@@ -13,20 +13,11 @@ const champRotation = {
         });
     },
     oninit: async () => {
-        console.log("ONINIT");
-
         await league.champRotation();
         await ddragon.PreloadRotationChampionImageUrl();
     },
     RenderRotation: () => {
-        console.log("render---");
-        console.log("league.rotation: ", league.rotation);
-        console.log("ddragon.championImgs: ", ddragon.championImgs);
-        console.log("ddragon.statusRotationChampions: ", ddragon.statusRotationChampions);
-
         if (league.rotation && ddragon.statusRotationChampions === 200) {
-            console.log("IF render");
-            console.log("ddragon.statusRotationChampions: ", ddragon.statusRotationChampions);
             return m.fragment({}, [
                 <div class="body-container">
                     <h3>Champions</h3>

@@ -28,8 +28,6 @@ const leagueLiveSearch = {
                         onsubmit={async e => {
                             e.preventDefault();
                             if (vnode.state.valid && vnode.state.name) {
-                                console.log("START SEARCH");
-
                                 ddragon.statusChampion = null;
                                 ddragon.statusSpells = null;
                                 await league.live(encodeURI(vnode.state.name.trim()));
