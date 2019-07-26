@@ -20,6 +20,7 @@
     "dependencies": {
         "cordova-android": "8.0.0",
         "cordova-browser": "6.0.0",
+        "cordova-plugin-network-information": "^2.0.2",
         "cordova-plugin-splashscreen": "^5.0.2",
         "mithril": "^2.0.0-rc.4"
     },
@@ -43,7 +44,8 @@
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-splashscreen": {}
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-network-information": {}
         },
         "platforms": [
             "browser",

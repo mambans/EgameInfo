@@ -12,6 +12,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "se.dbwebb.eGameInfo"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "se.dbwebb.eGameInfo"
     }
   },
   "dependent_plugins": {}
