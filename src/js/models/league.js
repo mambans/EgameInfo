@@ -23,6 +23,7 @@ const league = {
             league.offlineRender = false;
             m.route.set("/league/acc/:name", { name: "unknown" });
         } else {
+            league.offlineRender = false;
             try {
                 var url;
 
@@ -76,69 +77,84 @@ const league = {
     },
 
     live: async name => {
-        try {
-            var url;
-            var liveAcc;
-
-            url = encodeURIComponent(
-                `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
-            );
-
-            if (
-                (new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
-                    league.refreshAcc) |
-                    !localStorage.getItem(`${name}-date`) ||
-                !localStorage.getItem(name)
-            ) {
-                await m
-                    .request({
-                        method: "GET",
-                        url: auth.proxy + url,
-                    })
-                    .then(res => {
-                        localStorage.setItem(`${name}-date`, JSON.stringify(new Date().getTime()));
-                        localStorage.setItem(name, JSON.stringify(res));
-                    })
-                    .catch(e => {
-                        console.log("Error", e);
-                        league.error = e;
-                    });
-            }
-
+        if (auth.networkState === "none" && localStorage.getItem(`${name}-live`)) {
             liveAcc = JSON.parse(localStorage.getItem(name)).id;
-            url = encodeURIComponent(
-                `https:/euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${liveAcc}?${auth.apiKey}`
-            );
-
-            if (
-                new Date().getTime() -
-                    JSON.parse(localStorage.getItem(localStorage.getItem(`${name}-live-date`))) >=
-                    league.refreshLive ||
-                !localStorage.getItem(`${name}-live-date`) ||
-                !localStorage.getItem(`${name}-live`)
-            ) {
-                await m
-                    .request({
-                        method: "GET",
-                        url: auth.proxy + url,
-                    })
-                    .then(res => {
-                        localStorage.setItem(`${name}-live`, JSON.stringify(res));
-                        localStorage.setItem(
-                            `${name}-live-date`,
-                            JSON.stringify(new Date().getTime())
-                        );
-                    })
-                    .catch(e => {
-                        console.log("Error", e);
-                        league.error = e.message;
-                    });
-            }
-
             league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
+            league.offlineRender = true;
             m.route.set("/league/live/:name", { name: liveAcc });
-        } catch (e) {
-            console.log("Error", e);
+        } else if (auth.networkState === "none") {
+            m.route.set("/league/live/:name", { name: "unknown" });
+        } else {
+            league.offlineRender = false;
+            try {
+                var url;
+                var liveAcc;
+
+                url = encodeURIComponent(
+                    `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
+                );
+
+                if (
+                    (new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
+                        league.refreshAcc) |
+                        !localStorage.getItem(`${name}-date`) ||
+                    !localStorage.getItem(name)
+                ) {
+                    await m
+                        .request({
+                            method: "GET",
+                            url: auth.proxy + url,
+                        })
+                        .then(res => {
+                            localStorage.setItem(
+                                `${name}-date`,
+                                JSON.stringify(new Date().getTime())
+                            );
+                            localStorage.setItem(name, JSON.stringify(res));
+                        })
+                        .catch(e => {
+                            console.log("Error", e);
+                            league.error = e;
+                        });
+                }
+
+                liveAcc = JSON.parse(localStorage.getItem(name)).id;
+                url = encodeURIComponent(
+                    `https:/euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${liveAcc}?${auth.apiKey}`
+                );
+
+                if (
+                    new Date().getTime() -
+                        JSON.parse(
+                            localStorage.getItem(localStorage.getItem(`${name}-live-date`))
+                        ) >=
+                        league.refreshLive ||
+                    !localStorage.getItem(`${name}-live-date`) ||
+                    !localStorage.getItem(`${name}-live`)
+                ) {
+                    await m
+                        .request({
+                            method: "GET",
+                            url: auth.proxy + url,
+                        })
+                        .then(res => {
+                            localStorage.setItem(`${name}-live`, JSON.stringify(res));
+                            localStorage.setItem(
+                                `${name}-live-date`,
+                                JSON.stringify(new Date().getTime())
+                            );
+                        })
+                        .catch(e => {
+                            console.log("Error", e);
+                            league.error = e.message;
+                        });
+                }
+
+                league.liveGame = JSON.parse(localStorage.getItem(`${name}-live`));
+                m.route.set("/league/live/:name", { name: liveAcc });
+            } catch (e) {
+                console.log("Error", e);
+            }
         }
     },
 
@@ -183,6 +199,8 @@ const league = {
     },
 
     champRotation: async () => {
+        console.log("champRotation");
+
         var url;
 
         url = encodeURIComponent(
@@ -192,11 +210,9 @@ const league = {
         if (auth.networkState === "none") {
             console.log("NO CONNECTION");
             try {
-                console.log("TRY");
                 league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
             } catch (e) {
-                console.log("CATCH");
-                console.log(e.message);
+                console.log(e.title);
             }
         } else if (
             new Date().getTime() - JSON.parse(localStorage.getItem("currentRotation-date")) >=
@@ -204,12 +220,15 @@ const league = {
             !JSON.parse(localStorage.getItem("currentRotation-date")) ||
             !localStorage.getItem("currentRotation")
         ) {
+            console.log("33");
+
             await m
                 .request({
                     method: "GET",
                     url: auth.proxy + url,
                 })
                 .then(res => {
+                    console.log("44");
                     localStorage.setItem("currentRotation", JSON.stringify(res));
                     localStorage.setItem(
                         "currentRotation-date",
@@ -217,9 +236,9 @@ const league = {
                     );
                     league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
                 });
+            console.log("55");
+            league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
         }
-
-        league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
     },
 
     featuredGamesSearch: async () => {
@@ -255,6 +274,7 @@ const league = {
 
             league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
         }
+        league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
     },
 };
 

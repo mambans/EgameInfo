@@ -107,45 +107,48 @@ const ddragon = {
     },
 
     PreloadRotationChampionImageUrl: () => {
-        Object.values(league.rotation.freeChampionIds).map(champ => {
-            var champName;
-            var champImgUrl;
+        console.log("PreloadRotationChampionImageUrl");
+        if (league.rotation) {
+            Object.values(league.rotation.freeChampionIds).map(champ => {
+                var champName;
+                var champImgUrl;
 
-            try {
-                champName = ddragon.imageName(champ);
-                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
-            } catch (e) {
-                champImgUrl = "img/placeholder.png";
-            } finally {
-                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
-                    ddragon.championImgs.push({
-                        name: champName,
-                        url: champImgUrl,
-                    });
+                try {
+                    champName = ddragon.imageName(champ);
+                    champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+                } catch (e) {
+                    champImgUrl = "img/placeholder.png";
+                } finally {
+                    if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                        ddragon.championImgs.push({
+                            name: champName,
+                            url: champImgUrl,
+                        });
+                    }
                 }
-            }
-        });
+            });
 
-        Object.values(league.rotation.freeChampionIdsForNewPlayers).map(champ => {
-            var champName;
-            var champImgUrl;
+            Object.values(league.rotation.freeChampionIdsForNewPlayers).map(champ => {
+                var champName;
+                var champImgUrl;
 
-            try {
-                champName = ddragon.imageName(champ);
-                champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
-            } catch (e) {
-                champImgUrl = "img/placeholder.png";
-            } finally {
-                if (!ddragon.championImgs.find(champion => champion.name === champName)) {
-                    ddragon.championImgs.push({
-                        name: champName,
-                        url: champImgUrl,
-                    });
+                try {
+                    champName = ddragon.imageName(champ);
+                    champImgUrl = `http://ddragon.leagueoflegends.com/cdn/${auth.patch}/img/champion/${champName}.png`;
+                } catch (e) {
+                    champImgUrl = "img/placeholder.png";
+                } finally {
+                    if (!ddragon.championImgs.find(champion => champion.name === champName)) {
+                        ddragon.championImgs.push({
+                            name: champName,
+                            url: champImgUrl,
+                        });
+                    }
                 }
-            }
-        });
+            });
 
-        ddragon.statusRotationChampions = 200;
+            ddragon.statusRotationChampions = 200;
+        }
     },
 
     preloadChampionImgUrl: async () => {
@@ -181,8 +184,13 @@ const ddragon = {
     },
 
     imageUrlV2: champ => {
-        return ddragon.championImgs.find(champion => champion.name === ddragon.imageName(champ))
-            .url;
+        try {
+            return ddragon.championImgs.find(champion => champion.name === ddragon.imageName(champ))
+                .url;
+        } catch (e) {
+            console.log("Error: ", e.title);
+            return "img/placeholder.png";
+        }
     },
 };
 

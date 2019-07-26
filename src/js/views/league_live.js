@@ -31,6 +31,18 @@ const leagueLive = {
             return championId;
         }
     },
+    renderFinal: () => {
+        if (auth.networkState === "none" && league.offlineRender) {
+            return m.fragment({}, [
+                <p className="error">No Connection</p>,
+                leagueLive.renderLiveContent(),
+            ]);
+        } else if (auth.networkState === "none") {
+            return m.fragment({}, [<p className="error">No Connection</p>]);
+        } else {
+            return m.fragment({}, [leagueLive.renderLiveContent()]);
+        }
+    },
 
     renderLiveContent: () => {
         if (league.liveGame.status) {
@@ -65,7 +77,6 @@ const leagueLive = {
                     </div>
                     <div className="teams" id="teams">
                         {Object.keys(league.liveGame.participants).map(player => {
-                            // var champImgUrl = leagueLive.imageUrl(player);
                             var champImgUrl = ddragon.championImgs.find(
                                 champ => champ.name === leagueLive.playerChampion(player)
                             ).url;
@@ -137,7 +148,7 @@ const leagueLive = {
                 <h1>Live Game</h1>
             </div>,
             <div className="main-container slide-in">
-                <div class="body-container">{leagueLive.renderLiveContent()}</div>
+                <div class="body-container">{leagueLive.renderFinal()}</div>
             </div>,
         ]);
     },
