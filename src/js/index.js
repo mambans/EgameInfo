@@ -20,8 +20,22 @@ var app = {
         document.addEventListener("deviceready", this.onDeviceReady.bind(this), false);
     },
 
+    onOnline: () => {
+        console.log("ONLINE");
+        auth.networkState = navigator.connection.type;
+        console.log("networkState: ", auth.networkState);
+    },
+
+    onOffline: () => {
+        console.log("OFFLINE");
+        auth.networkState = navigator.connection.type;
+        console.log("networkState: ", auth.networkState);
+    },
+
     onDeviceReady: function() {
         console.log("Device is ready!");
+        document.addEventListener("online", this.onOnline, false);
+        document.addEventListener("offline", this.onOffline, false);
         auth.latestVersion();
         ddragon.championsList();
         console.log("Preload Done!");

@@ -46,6 +46,40 @@ const champRotation = {
                     </div>
                 </div>,
             ]);
+        } else if (auth.networkState === "none" && league.rotation) {
+            return m.fragment({}, [
+                <div class="body-container">
+                    <p className="error">No Connection</p>
+                    <h3>Champions</h3>
+                    <div className="rotationChamps">
+                        {Object.values(league.rotation.freeChampionIds).map(champ => {
+                            return m.fragment({}, [
+                                <div className="champion">
+                                    <p>{ddragon.imageName(champ)}</p>
+                                    {/* <img src={ddragon.imageUrl(champ)} alt="champ img"></img> */}
+                                    <img src={ddragon.imageUrlV2(champ)} alt="champ img"></img>
+                                </div>,
+                            ]);
+                        })}
+                    </div>
+                    <h3>Champs for new players.</h3>
+                    <div className="rotationChamps">
+                        {Object.values(league.rotation.freeChampionIdsForNewPlayers).map(champ => {
+                            return m.fragment({}, [
+                                <div className="champion">
+                                    <p>{ddragon.imageName(champ)}</p>
+                                    {/* <img src={ddragon.imageUrl(champ)} alt="champ img"></img> */}
+                                    <img src={ddragon.imageUrlV2(champ)} alt="champ img"></img>
+                                </div>,
+                            ]);
+                        })}
+                    </div>
+                </div>,
+            ]);
+        } else if (auth.networkState === "none") {
+            <div class="body-container">
+                <p className="error">No Connection</p>
+            </div>;
         } else {
             return m.fragment({}, [
                 <div class="body-container">

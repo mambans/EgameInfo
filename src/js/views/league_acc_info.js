@@ -4,6 +4,7 @@ import m from "mithril";
 import { league } from "../models/league";
 
 import { allMasteries } from "./champMasteries";
+import { auth } from "../models/auth";
 
 const league_acc = {
     mastVisible: false,
@@ -13,6 +14,86 @@ const league_acc = {
             vnode.dom.addEventListener("animationend", resolve);
         });
     },
+    renderAcc: vnode => {
+        if (league.acc.status) {
+            return m.fragment({}, [
+                console.log("No summoner"),
+                <p className="error">No Summoner with that name</p>,
+            ]);
+        } else if (auth.networkState === "none") {
+            if (league.offlineRender) {
+                return m.fragment({}, [
+                    <p className="error">No connection</p>,
+                    <div>
+                        <div className="accInfo1">
+                            <div>
+                                <p className="prefix">Summoner</p>
+                                <p>{league.acc.name}</p>
+                            </div>
+                            <div>
+                                <p className="prefix">Level</p>
+                                <p>{league.acc.summonerLevel}</p>
+                            </div>
+                            <div>
+                                <p className="prefix">Mastery</p>
+                                <p>{league.acc.totalMastery}</p>
+                            </div>
+                        </div>
+                        <button
+                            className="btn btn-primary"
+                            onclick={async () => {
+                                if (!league.acc.masteries || !league.ChampList) {
+                                    await league.allMasteries();
+                                }
+                                vnode.state.mastVisible = !vnode.state.mastVisible;
+                            }}>
+                            All Masteries
+                        </button>
+                    </div>,
+                ]);
+            } else {
+                return m.fragment({}, [<p className="error">No connection</p>]);
+            }
+        } else if (league.acc.name) {
+            return m.fragment({}, [
+                <div>
+                    <div className="accInfo1">
+                        <div>
+                            <p className="prefix">Summoner</p>
+                            <p>{league.acc.name}</p>
+                        </div>
+                        <div>
+                            <p className="prefix">Level</p>
+                            <p>{league.acc.summonerLevel}</p>
+                        </div>
+                        <div>
+                            <p className="prefix">Mastery</p>
+                            <p>{league.acc.totalMastery}</p>
+                        </div>
+                    </div>
+                    <button
+                        className="btn btn-primary"
+                        onclick={async () => {
+                            if (!league.acc.masteries || !league.ChampList) {
+                                await league.allMasteries();
+                            }
+                            vnode.state.mastVisible = !vnode.state.mastVisible;
+                        }}>
+                        All Masteries
+                    </button>
+                </div>,
+            ]);
+        } else {
+            return m.fragment({}, [
+                <div className="loading-div">
+                    <div className="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>,
+            ]);
+        }
+    },
     view: vnode => {
         return m.fragment({}, [
             <div className="title">
@@ -20,44 +101,7 @@ const league_acc = {
             </div>,
             <div className="main-container slide-in">
                 <div className="body-container" id="body-container">
-                    {league.acc.status ? (
-                        (console.log("No summoner"),
-                        <p className="error">No Summoner with that name</p>)
-                    ) : league.acc.name ? (
-                        <div>
-                            <div className="accInfo1">
-                                <div>
-                                    <p className="prefix">Summoner</p>
-                                    <p>{league.acc.name}</p>
-                                </div>
-                                <div>
-                                    <p className="prefix">Level</p>
-                                    <p>{league.acc.summonerLevel}</p>
-                                </div>
-                                <div>
-                                    <p className="prefix">Mastery</p>
-                                    <p>{league.acc.totalMastery}</p>
-                                </div>
-                            </div>
-                            <button
-                                className="btn btn-primary"
-                                onclick={async () => {
-                                    if (!league.acc.masteries || !league.ChampList) {
-                                        await league.allMasteries();
-                                    }
-                                    vnode.state.mastVisible = !vnode.state.mastVisible;
-                                }}>
-                                All Masteries
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="loading-div">
-                            <div className="lds-ripple">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                    )}
+                    {league_acc.renderAcc(vnode)}
                     {vnode.state.mastVisible && m(allMasteries)}
                 </div>
             </div>,

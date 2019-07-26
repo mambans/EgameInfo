@@ -4,9 +4,10 @@ import m from "mithril";
 import { league } from "./league";
 
 const auth = {
+    networkState: null,
     patch: "9.13.1",
     manualPatch: "9.12.1",
-    apiKey: "api_key=RGAPI-7dd972f1-5145-4593-a7ed-e9e5676f67ac",
+    apiKey: "api_key=RGAPI-0eaffadf-96dc-4fac-a574-2a4fd2d85e86",
     proxy:
         "http://www.student.bth.se/~ropb16/dbwebb-kurser/webapp/me/kmom10/proj/www/proxy.php?url=",
 

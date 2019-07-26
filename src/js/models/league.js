@@ -9,56 +9,69 @@ const league = {
     ChampList: [],
     sumSpellsList: [],
     error: "",
+    offlineRender: false,
     refreshLive: 20 * 60 * 1000, // Change first value (in minutes)
     refreshAcc: 60 * 60 * 1000,
     refreshRotation: 60 * 60 * 1000,
     refreshFeatured: 20 * 60 * 1000,
     search: async name => {
-        try {
-            var url;
-
-            url = encodeURIComponent(
-                `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
-            );
-
-            if (
-                new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
-                    league.refreshAcc ||
-                !JSON.parse(localStorage.getItem(`${name}-date`)) ||
-                !localStorage.getItem(name)
-            ) {
-                await m
-                    .request({
-                        method: "GET",
-                        url: auth.proxy + url,
-                    })
-                    .then(res => {
-                        localStorage.setItem(`${name}-date`, JSON.stringify(new Date().getTime()));
-                        localStorage.setItem(name, JSON.stringify(res));
-                    });
-            }
-
+        if (auth.networkState === "none" && localStorage.getItem(name)) {
             league.acc = JSON.parse(localStorage.getItem(name));
-
-            url = encodeURIComponent(
-                `https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${league.acc.id}?${auth.apiKey}`
-            );
-
-            localStorage.getItem(`${name}-TotalMastery`)
-                ? JSON.parse(localStorage.getItem(`${name}-TotalMastery`))
-                : await m
-                      .request({
-                          method: "GET",
-                          url: auth.proxy + url,
-                      })
-                      .then(res => {
-                          localStorage.setItem(`${name}-TotalMastery`, JSON.stringify(res));
-                      });
-
-            league.acc.totalMastery = JSON.parse(localStorage.getItem(`${name}-TotalMastery`));
+            league.offlineRender = true;
             m.route.set("/league/acc/:name", { name: league.acc.name });
-        } catch (e) {
-            console.log("Error", e);
+        } else if (auth.networkState === "none") {
+            league.offlineRender = false;
+            m.route.set("/league/acc/:name", { name: "unknown" });
+        } else {
+            try {
+                var url;
+
+                url = encodeURIComponent(
+                    `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?${auth.apiKey}`
+                );
+
+                if (
+                    new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-date`)) >=
+                        league.refreshAcc ||
+                    !JSON.parse(localStorage.getItem(`${name}-date`)) ||
+                    !localStorage.getItem(name)
+                ) {
+                    await m
+                        .request({
+                            method: "GET",
+                            url: auth.proxy + url,
+                        })
+                        .then(res => {
+                            localStorage.setItem(
+                                `${name}-date`,
+                                JSON.stringify(new Date().getTime())
+                            );
+                            localStorage.setItem(name, JSON.stringify(res));
+                        });
+                }
+
+                league.acc = JSON.parse(localStorage.getItem(name));
+
+                url = encodeURIComponent(
+                    `https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/${league.acc.id}?${auth.apiKey}`
+                );
+
+                localStorage.getItem(`${name}-TotalMastery`)
+                    ? JSON.parse(localStorage.getItem(`${name}-TotalMastery`))
+                    : await m
+                          .request({
+                              method: "GET",
+                              url: auth.proxy + url,
+                          })
+                          .then(res => {
+                              localStorage.setItem(`${name}-TotalMastery`, JSON.stringify(res));
+                          });
+
+                league.acc.totalMastery = JSON.parse(localStorage.getItem(`${name}-TotalMastery`));
+                m.route.set("/league/acc/:name", { name: league.acc.name });
+            } catch (e) {
+                console.log("Error", e);
+            }
         }
     },
 
@@ -130,38 +143,42 @@ const league = {
     },
 
     allMasteries: async () => {
-        try {
-            var name = league.acc.name;
-            var url;
+        if (auth.networkState === "none" && localStorage.getItem(`${name}-mast`)) {
+            league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
+        } else {
+            try {
+                var name = league.acc.name;
+                var url;
 
-            url = encodeURIComponent(
-                `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${league.acc.id}?${auth.apiKey}`
-            );
+                url = encodeURIComponent(
+                    `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${league.acc.id}?${auth.apiKey}`
+                );
 
-            if (
-                new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-mast-date`)) >=
-                    league.refreshAcc ||
-                !JSON.parse(localStorage.getItem(`${name}-mast-date`)) ||
-                !localStorage.getItem(`${name}-mast`)
-            ) {
-                await m
-                    .request({
-                        method: "GET",
-                        url: auth.proxy + url,
-                    })
-                    .then(res => {
-                        localStorage.setItem(`${name}-mast`, JSON.stringify(res));
-                        localStorage.setItem(
-                            `${name}-mast-date`,
-                            JSON.stringify(new Date().getTime())
-                        );
-                        league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
-                    });
-            } else {
-                league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
+                if (
+                    new Date().getTime() - JSON.parse(localStorage.getItem(`${name}-mast-date`)) >=
+                        league.refreshAcc ||
+                    !JSON.parse(localStorage.getItem(`${name}-mast-date`)) ||
+                    !localStorage.getItem(`${name}-mast`)
+                ) {
+                    await m
+                        .request({
+                            method: "GET",
+                            url: auth.proxy + url,
+                        })
+                        .then(res => {
+                            localStorage.setItem(`${name}-mast`, JSON.stringify(res));
+                            localStorage.setItem(
+                                `${name}-mast-date`,
+                                JSON.stringify(new Date().getTime())
+                            );
+                            league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
+                        });
+                } else {
+                    league.acc.masteries = JSON.parse(localStorage.getItem(`${name}-mast`));
+                }
+            } catch (e) {
+                console.log("Error", e);
             }
-        } catch (e) {
-            console.log("Error", e);
         }
     },
 
@@ -172,7 +189,16 @@ const league = {
             `https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations?${auth.apiKey}`
         );
 
-        if (
+        if (auth.networkState === "none") {
+            console.log("NO CONNECTION");
+            try {
+                console.log("TRY");
+                league.rotation = JSON.parse(localStorage.getItem("currentRotation"));
+            } catch (e) {
+                console.log("CATCH");
+                console.log(e.message);
+            }
+        } else if (
             new Date().getTime() - JSON.parse(localStorage.getItem("currentRotation-date")) >=
                 league.refreshRotation ||
             !JSON.parse(localStorage.getItem("currentRotation-date")) ||
