@@ -223,34 +223,38 @@ const league = {
     },
 
     featuredGamesSearch: async () => {
-        var url;
+        if (auth.networkState === "none") {
+            league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
+        } else {
+            var url;
 
-        url = encodeURIComponent(
-            `https://euw1.api.riotgames.com/lol/spectator/v4/featured-games?${auth.apiKey}`
-        );
+            url = encodeURIComponent(
+                `https://euw1.api.riotgames.com/lol/spectator/v4/featured-games?${auth.apiKey}`
+            );
 
-        if (
-            new Date().getTime() - JSON.parse(localStorage.getItem("featuredGames-date")) >=
-                league.refreshFeatured ||
-            !localStorage.getItem("featuredGames-date") ||
-            !localStorage.getItem("featuredGames")
-        ) {
-            await m
-                .request({
-                    method: "GET",
-                    url: auth.proxy + url,
-                })
-                .then(res => {
-                    localStorage.setItem("featuredGames", JSON.stringify(res));
-                    localStorage.setItem(
-                        "featuredGames-date",
-                        JSON.stringify(new Date().getTime())
-                    );
-                    league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
-                });
+            if (
+                new Date().getTime() - JSON.parse(localStorage.getItem("featuredGames-date")) >=
+                    league.refreshFeatured ||
+                !localStorage.getItem("featuredGames-date") ||
+                !localStorage.getItem("featuredGames")
+            ) {
+                await m
+                    .request({
+                        method: "GET",
+                        url: auth.proxy + url,
+                    })
+                    .then(res => {
+                        localStorage.setItem("featuredGames", JSON.stringify(res));
+                        localStorage.setItem(
+                            "featuredGames-date",
+                            JSON.stringify(new Date().getTime())
+                        );
+                        league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
+                    });
+            }
+
+            league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
         }
-
-        league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
     },
 };
 
