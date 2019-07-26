@@ -268,13 +268,11 @@ const league = {
                             "featuredGames-date",
                             JSON.stringify(new Date().getTime())
                         );
-                        league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
                     });
             }
 
             league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
         }
-        league.featuredGames = JSON.parse(localStorage.getItem("featuredGames"));
     },
 };
 

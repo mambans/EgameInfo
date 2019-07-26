@@ -79,7 +79,7 @@ const featuredGames = {
                 <h1>Featured Games</h1>
             </div>,
             <div className="main-container slide-in">
-                <div class="body-container">{featuredGames.renderFeaturedGames()}</div>
+                <div class="body-container">{featuredGames.renderFinal()}</div>
             </div>,
         ]);
     },
