@@ -7,7 +7,7 @@ const auth = {
     networkState: null,
     patch: "9.13.1",
     manualPatch: "9.12.1",
-    apiKey: "api_key=RGAPI-0eaffadf-96dc-4fac-a574-2a4fd2d85e86",
+    apiKey: "api_key=RGAPI-f3d95166-5813-495b-929c-9d60499d6f75",
     proxy:
         "http://www.student.bth.se/~ropb16/dbwebb-kurser/webapp/me/kmom10/proj/www/proxy.php?url=",
 
