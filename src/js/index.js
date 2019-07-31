@@ -24,6 +24,10 @@ var app = {
         console.log("ONLINE");
         auth.networkState = navigator.connection.type;
         console.log("networkState: ", auth.networkState);
+        auth.latestVersion();
+        ddragon.championsList();
+        console.log("Preload Done!");
+        location.reload(true);
     },
 
     onOffline: () => {
