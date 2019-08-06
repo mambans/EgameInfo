@@ -19,7 +19,7 @@ const league_acc = {
             if (league.offlineRender) {
                 return m.fragment({}, [
                     <p className="error">No connection</p>,
-                    league_acc.renderAcc(),
+                    league_acc.renderAcc(vnode),
                 ]);
             } else {
                 return m.fragment({}, [<p className="error">No connection</p>]);
